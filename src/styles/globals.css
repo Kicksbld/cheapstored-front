@@ -2,20 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  @font-face {
+    font-family: "Cooper";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("/fonts/CooperBT-Light.woff2") format("woff2"),
+      url("/font/CooperBT-Light.woff") format("woff"),
+      url("/font/CooperBT-Light.ttf") format("truetype");
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+.container {
+  max-width: calc(100% - 60px);
+  margin: 0 auto;
+}
+
+.header-text-stroke {
+  -webkit-text-stroke-width: 2;
+-webkit-text-stroke-color: rgba(96, 109, 1, 0.20);
 }
