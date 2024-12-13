@@ -20,6 +20,6 @@
 }
 
 .header-text-stroke {
-  -webkit-text-stroke-width: 2;
--webkit-text-stroke-color: rgba(96, 109, 1, 0.20);
+  -webkit-text-stroke: 2px rgba(96, 109, 1, 0.2);
+
 }

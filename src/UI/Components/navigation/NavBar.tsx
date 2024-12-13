@@ -5,10 +5,10 @@ import React from "react";
 const NavBar = () => {
   return (
     <div className="flex items-center pt-[35px]">
-      <div className="w-full">
+      <div className="md:w-full">
         <Image alt="" src="/img/svg/CST.svg" width={44} height={24} />
       </div>
-      <ul className="flex items-center gap-[21px] ">
+      <ul className=" items-center gap-[21px] hidden md:flex ">
         <Typographie className="w-max cursor-pointer" font="ambit">
           Explore
         </Typographie>
