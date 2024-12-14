@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { Typographie } from "./Typographie";
 
 interface Props {
   size?: "small" | "medium" | "large";
@@ -50,8 +51,7 @@ export const Button = ({
         "bg-none border-2 border-dashed border-blue text-blue rounded-full";
       break;
     case "noBorder":
-      variantStyles =
-        "bg-none text-tercery";
+      variantStyles = "bg-none text-tercery";
       break;
     case "icon":
       if (iconTheme === "accent") {
@@ -110,7 +110,9 @@ export const Button = ({
           <>
             <div className={clsx(icon && "flex items-center gap-2")}>
               {icon && iconPosition === "left" && <icon.icon size={iconSize} />}
-              {children}
+              <Typographie font="ambit" weight="semibold">
+                {children}
+              </Typographie>
               {icon && iconPosition === "right" && (
                 <icon.icon size={iconSize} />
               )}
