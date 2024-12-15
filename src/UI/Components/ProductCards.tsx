@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Typographie } from "../Design-System/Typographie";
 import Image from "next/image";
+import Link from "next/link";
 
 // Définition des types
 type Product = {
@@ -73,55 +74,57 @@ const ProductCards: React.FC = () => {
   return (
     <>
       {table.map((product) => (
-        <div
-          key={product.id}
-          className="flex flex-col justify-center p-[20px] cursor-pointer bg-light  gap-[20px] max-w-[313px] rounded-[10px] mr-[30px] border border-cloud"
-        >
-          <Image
-            src="/img/png/airpod.png"
-            alt="Product Image"
-            width={230}
-            height={230}
-          />
-          <div className="space-y-[20px]">
-            <div className="space-y-[6px]">
-              <Typographie
-                font="ambit"
-                weight="bold"
-                theme="secondary"
-                variant="body-xs"
-              >
-                Livraison gratuite
-              </Typographie>
-              <Typographie
-                font="ambit"
-                weight="semibold"
-                theme="primary"
-                variant="body-sm"
-              >
-                {product.name}
-              </Typographie>
-            </div>
-            <hr className="border-cloud" />
-            <div>
-              <Typographie
-                font="ambit"
-                className="text-black/60"
-                variant="body-sm"
-              >
-                A partir
-              </Typographie>
-              <Typographie
-                font="ambit"
-                weight="semibold"
-                theme="dark"
-                variant="body-xs"
-              >
-                {product.price} €
-              </Typographie>
+        <Link href={`/product/${product.id}`}>
+          <div
+            key={product.id}
+            className="flex flex-col justify-center p-[20px] cursor-pointer bg-light  gap-[20px] max-w-[313px] rounded-[10px] border border-cloud h-full"
+          >
+            <Image
+              src="/img/png/airpod.png"
+              alt="Product Image"
+              width={230}
+              height={230}
+            />
+            <div className="space-y-[20px]">
+              <div className="space-y-[6px]">
+                <Typographie
+                  font="ambit"
+                  weight="bold"
+                  theme="secondary"
+                  variant="body-xs"
+                >
+                  Livraison gratuite
+                </Typographie>
+                <Typographie
+                  font="ambit"
+                  weight="semibold"
+                  theme="primary"
+                  variant="body-sm"
+                >
+                  {product.name}
+                </Typographie>
+              </div>
+              <hr className="border-cloud" />
+              <div>
+                <Typographie
+                  font="ambit"
+                  className="text-black/60"
+                  variant="body-sm"
+                >
+                  A partir
+                </Typographie>
+                <Typographie
+                  font="ambit"
+                  weight="semibold"
+                  theme="dark"
+                  variant="body-xs"
+                >
+                  {product.price} €
+                </Typographie>
+              </div>
             </div>
           </div>
-        </div>
+        </Link>
       ))}
     </>
   );

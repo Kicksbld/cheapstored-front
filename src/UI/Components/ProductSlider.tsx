@@ -18,11 +18,17 @@ const ProductSlider = () => {
       </div>
       <div className="w-full mb-[30px] flex gap-[30px]">
         <div
-          className="w-[400px] h-[477px] rounded-[18px] border border-cloud relative"
-          style={{ backgroundImage: "url(/img/png/cardimg.png)", backgroundRepeat: "no-repeat", backgroundSize: "cover" }}
+          className="w-[20vw] h-[49vh] rounded-[18px] border border-cloud relative"
+          style={{
+            backgroundImage: "url(/img/png/cardimg.png)",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+          }}
         >
           <div className="absolute bottom-[34px] left-[30px] max-w-[300px]">
-            <Typographie variant="h3" font="ambit">Remise de 20% la première semaine</Typographie>
+            <Typographie variant="h3" font="ambit">
+              Remise de 20% la première semaine
+            </Typographie>
           </div>
         </div>
         <ProductCards />

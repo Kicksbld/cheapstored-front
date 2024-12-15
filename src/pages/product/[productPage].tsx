@@ -1,11 +1,50 @@
+
 import Header from "@/UI/Components/Header";
 import { Typographie } from "@/UI/Design-System/Typographie";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IoChevronDownSharp } from "react-icons/io5";
 import { FiChevronUp } from "react-icons/fi";
 
 const productPage = () => {
+
+  type Product = {
+    id: number;
+    name: string;
+    price: number;
+  };
+  
+  type Error = {
+    message: string;
+  };
+
+    const PRODUCT_URL = "/api/productSlug";
+  
+    const [error, setError] = useState<Error | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [table, setTable] = useState<Product[]>([]);
+  
+    useEffect(() => {
+      const fetchPosts = async () => {
+        setIsLoading(true);
+        try {
+          const res = await fetch(PRODUCT_URL);
+          if (!res.ok) {
+            throw new Error("Network response was not ok");
+          }
+          const data: Product[] = await res.json();
+          setTable(data);
+          console.log(table)
+        } catch (e) {
+          setError(e as Error);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+  
+      fetchPosts();
+    }, []);
+
   return (
     <>
       <Header />
@@ -68,9 +107,15 @@ const productPage = () => {
             </div>
           </div>
         </div>
-        <div className="w-[910px] h-[640px] border border-cloud" style={{backgroundImage: "url(/img/png/airpodsPng.png)", backgroundRepeat: "no-repeat", backgroundSize: "contain", backgroundPosition: "center"}}>
-          
-        </div>
+        <div
+          className="w-[910px] h-[640px] border border-cloud"
+          style={{
+            backgroundImage: "url(/img/png/airpodsPng.png)",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "contain",
+            backgroundPosition: "center",
+          }}
+        ></div>
       </div>
     </>
   );

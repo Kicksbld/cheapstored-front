@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import NavBar from "@/UI/Components/navigation/NavBar";
 import { Button } from "@/UI/Design-System/Button";
 import { Typographie } from "@/UI/Design-System/Typographie";
@@ -7,12 +7,11 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { HiMinus } from "react-icons/hi";
 import { RiArrowRightSFill } from "react-icons/ri";
 
-
 const Header = () => {
   return (
     <div className="bg-[#F3EFE6] w-full h-screen">
       <div className="container h-full relative">
-        <div className="space-y-[24px] absolute right-0 top-1/2 cursor-pointer transform -translate-y-1/2">
+        <div className="space-y-[24px] absolute right-0 top-1/2 cursor-pointer transform -translate-y-2/3">
           <div className="w-fit h-fit boxEffect rounded-[4px] cursor-pointer">
             <Image
               src="/img/png/airpodsBox.png"
@@ -86,7 +85,7 @@ const Header = () => {
               >
                 • Stock disponible •
               </Typographie>
-              <Typographie variant="h1" font="cooper" className="uppercase">
+              <Typographie variant="h1" font="cooper" className="uppercase max-w-[400px]">
                 APPLE AIRPODS MAX
               </Typographie>
             </div>
@@ -126,12 +125,12 @@ const Header = () => {
               </Typographie>
             </div>
 
-            <div className="space-y-[15px] w-full ">
-              <Typographie variant="h3" font="ambit">
+            <div className="space-y-[15px] w-full flex flex-col items-end">
+              <Typographie variant="h3" font="ambit" className="text-end">
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry. Lorem sum.
               </Typographie>
-              <div className="flex items-center gap-[15px]">
+              <div className="flex items-center gap-[15px] w-max">
                 <div className=" w-fit rounded-full flex items-center gap-[15px] px-[15px] py-[5px] border-2 border-black border-dashed">
                   <HiMinus className="text-black/70 cursor-pointer" size={20} />
                   <Typographie font="ambit" weight="semibold" variant="h3">
@@ -149,7 +148,7 @@ const Header = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
