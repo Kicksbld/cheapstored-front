@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { Typographie } from "./Typographie";
+import localFont from "next/font/local";
 
 interface Props {
   size?: "small" | "medium" | "large";
@@ -17,6 +18,10 @@ interface Props {
   className?: string;
   children?: React.ReactNode;
 }
+
+const Ambit = localFont({
+  src: "../../pages/fonts/Ambit-SemiBold.woff2",
+});
 
 export const Button = ({
   size = "medium",
@@ -97,10 +102,11 @@ export const Button = ({
       <button
         type="button"
         className={clsx(
-          "font-AmbitRegular",
+          Ambit.className,
           variantStyles,
           sizeStyles,
           iconSize,
+          
           className
         )}
       >
@@ -110,9 +116,9 @@ export const Button = ({
           <>
             <div className={clsx(icon && "flex items-center gap-2")}>
               {icon && iconPosition === "left" && <icon.icon size={iconSize} />}
-              <Typographie font="ambit" weight="semibold">
-                {children}
-              </Typographie>
+
+              {children}
+
               {icon && iconPosition === "right" && (
                 <icon.icon size={iconSize} />
               )}

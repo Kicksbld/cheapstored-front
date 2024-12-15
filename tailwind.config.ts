@@ -5,7 +5,7 @@ export default {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
- 
+
     // Or if using `src` directory:
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
@@ -30,34 +30,28 @@ export default {
           fontWeight: "200",
         },
       ],
-      xl: [
-        "20px",
-        {
-        },
-      ],
-      base: [
-        "16px",
-        {
-        },
-      ],
-      sm: [
-        "14px",
-        {
-        },
-      ],
-      xs: [
-        "12px",
-        {
-        },
-      ],
+      xl: ["20px", {}],
+      base: ["16px", {}],
+      sm: ["14px", {}],
+      xs: ["12px", {}],
       tag: [
         "17.5px",
         {
+          lineHeight: "24px",
           fontWeight: "600",
         },
       ],
     },
     extend: {
+      keyframes: {
+        slider: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" }, // Déplace la moitié du contenu total
+        },
+      },
+      animation: {
+        slider: "slider 15s linear infinite",
+      },
       colors: {
         white: "#fff",
         black: "#000",
