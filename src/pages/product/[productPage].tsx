@@ -1,53 +1,64 @@
-
 import Header from "@/UI/Components/Header";
 import { Typographie } from "@/UI/Design-System/Typographie";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { IoChevronDownSharp } from "react-icons/io5";
 import { FiChevronUp } from "react-icons/fi";
+import { useRouter } from "next/router";
 
 const productPage = () => {
+
+  const router = useRouter()
+  const { productPage } = router.query; // Récupération de l'id à partir des paramètres dynamiques
 
   type Product = {
     id: number;
     name: string;
     price: number;
   };
-  
+
   type Error = {
     message: string;
   };
 
-    const PRODUCT_URL = "/api/productSlug";
-  
-    const [error, setError] = useState<Error | null>(null);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [table, setTable] = useState<Product[]>([]);
-  
-    useEffect(() => {
-      const fetchPosts = async () => {
-        setIsLoading(true);
-        try {
-          const res = await fetch(PRODUCT_URL);
-          if (!res.ok) {
-            throw new Error("Network response was not ok");
-          }
-          const data: Product[] = await res.json();
-          setTable(data);
-          console.log(table)
-        } catch (e) {
-          setError(e as Error);
-        } finally {
-          setIsLoading(false);
+  const PRODUCT_URL = `/api/productSlug?page=${productPage}`;
+
+  const [error, setError] = useState<Error | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [product, setProduct] = useState<Product | null>(null);
+
+  useEffect(() => {
+    // Ne pas exécuter tant que l'id n'est pas défini
+    if (!productPage) return;
+
+    const fetchProduct = async () => {
+      setIsLoading(true);
+      try {
+        const res = await fetch(PRODUCT_URL);
+        if (!res.ok) {
+          throw new Error("Erreur lors de la récupération des données");
         }
-      };
-  
-      fetchPosts();
-    }, []);
+        const data: Product = await res.json();
+        setProduct(data);
+
+      } catch (e) {
+        setError(e as Error);
+      } finally {
+        setIsLoading(false); // Terminer le chargement dans tous les cas
+      }
+    };
+
+    fetchProduct();
+  }, [productPage]); // L'effet ne dépend que de l'id
 
   return (
     <>
-      <Header />
+     <Header 
+        productName={product?.name || ""}
+        productPrice={product?.price || 0}
+        productId={product?.id || 0}
+      />
+
       <div className="container flex justify-between pt-[50px] ">
         <div className="space-y-[22px]  ">
           <div className="flex items-center gap-[10px]">

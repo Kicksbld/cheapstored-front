@@ -74,9 +74,9 @@ const ProductCards: React.FC = () => {
   return (
     <>
       {table.map((product) => (
-        <Link href={`/product/${product.id}`}>
+        <Link href={`/product/${product.id}`} key={product.id}>
           <div
-            key={product.id}
+            
             className="flex flex-col justify-center p-[20px] cursor-pointer bg-light  gap-[20px] max-w-[313px] rounded-[10px] border border-cloud h-full"
           >
             <Image

@@ -7,7 +7,8 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { HiMinus } from "react-icons/hi";
 import { RiArrowRightSFill } from "react-icons/ri";
 
-const Header = () => {
+const Header = ({productName, productId, productPrice}: any) => {
+
   return (
     <div className="bg-[#F3EFE6] w-full h-screen">
       <div className="container h-full relative">
@@ -86,7 +87,7 @@ const Header = () => {
                 • Stock disponible •
               </Typographie>
               <Typographie variant="h1" font="cooper" className="uppercase max-w-[400px]">
-                APPLE AIRPODS MAX
+                {productName}
               </Typographie>
             </div>
             <div className="flex flex-col items-center gap-[20px] w-full">
@@ -141,7 +142,7 @@ const Header = () => {
                     size={20}
                   />
                 </div>
-                <Button>Ajouter au panier - 579€</Button>
+                <Button>Ajouter au panier - {productPrice} €</Button>
               </div>
             </div>
           </div>

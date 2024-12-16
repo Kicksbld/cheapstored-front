@@ -9,7 +9,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   try {
-    const apiUrl = `https://admin-dashboard-three-kappa-36.vercel.app/api/product?page=${page}`;
+    const apiUrl = `https://admin-dashboard-three-kappa-36.vercel.app/api/product/${page}`;
     
     // Headers pour la requête
     const headers = {
