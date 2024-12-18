@@ -2,7 +2,6 @@ import React from "react";
 import ProductCards from "./ProductCards";
 import { Typographie } from "../Design-System/Typographie";
 import { Button } from "../Design-System/Button";
-import { url } from "inspector";
 
 const ProductSlider = () => {
   return (
@@ -18,19 +17,18 @@ const ProductSlider = () => {
       </div>
       <div className="w-full mb-[30px] flex gap-[30px]">
         <div
-          className="w-[20vw] h-[49vh] rounded-[18px] border border-cloud relative"
+          className="relative w-full max-w-[400px] rounded-lg border border-cloud overflow-hidden bg-cover bg-no-repeat"
           style={{
             backgroundImage: "url(/img/png/cardimg.png)",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
           }}
         >
-          <div className="absolute bottom-[34px] left-[30px] max-w-[300px]">
+          <div className="absolute bottom-4 left-4 sm:left-6 lg:left-8 max-w-[90%]">
             <Typographie variant="h3" font="ambit">
               Remise de 20% la première semaine
             </Typographie>
           </div>
         </div>
+
         <ProductCards />
       </div>
     </div>
