@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import NavBar from "@/UI/Components/navigation/NavBar";
 import { Button } from "@/UI/Design-System/Button";
 import { Typographie } from "@/UI/Design-System/Typographie";
@@ -7,7 +7,8 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { HiMinus } from "react-icons/hi";
 import { RiArrowRightSFill } from "react-icons/ri";
 
-const Header = ({productName, productId, productPrice}: any) => {
+const Header = ({ productName, productId, productPrice }: any) => {
+  let [quantity, setQuantity] = useState(1);
 
   return (
     <div className="bg-[#F3EFE6] w-full h-screen">
@@ -86,7 +87,11 @@ const Header = ({productName, productId, productPrice}: any) => {
               >
                 • Stock disponible •
               </Typographie>
-              <Typographie variant="h1" font="cooper" className="uppercase max-w-[400px]">
+              <Typographie
+                variant="h1"
+                font="cooper"
+                className="uppercase max-w-[400px]"
+              >
                 {productName}
               </Typographie>
             </div>
@@ -133,11 +138,16 @@ const Header = ({productName, productId, productPrice}: any) => {
               </Typographie>
               <div className="flex items-center gap-[15px] w-max">
                 <div className=" w-fit rounded-full flex items-center gap-[15px] px-[15px] py-[5px] border-2 border-black border-dashed">
-                  <HiMinus className="text-black/70 cursor-pointer" size={20} />
+                  <HiMinus
+                    className="text-black/70 cursor-pointer"
+                    size={20}
+                    onClick={() => quantity > 1 ? setQuantity(quantity-1) : ""}
+                  />
                   <Typographie font="ambit" weight="semibold" variant="h3">
-                    1
+                    {quantity}
                   </Typographie>
                   <AiOutlinePlus
+                    onClick={() => setQuantity(quantity + 1)}
                     className="text-black/70 cursor-pointer"
                     size={20}
                   />

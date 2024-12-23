@@ -7,7 +7,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 
 const CartProducts = () => {
   return (
-    <div className="w-full flex justify-between max-w-[1172px] bg-light border border-cloud rounded-[10px] p-[20px] items-start ">
+    <div className="w-full flex justify-between  bg-light border border-cloud rounded-[10px] p-[20px] items-start ">
       <div className="flex gap-[20px]">
         <div className="w-max h-max">
           <Image src="/img/png/airpod.png" alt="" width={54} height={50} />
