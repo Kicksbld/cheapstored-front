@@ -1,17 +1,122 @@
 import CartProducts from "@/UI/Components/CartProducts";
 import NavBar from "@/UI/Components/navigation/NavBar";
 import { Button } from "@/UI/Design-System/Button";
+import { Input } from "@/UI/Design-System/Input";
 import { Typographie } from "@/UI/Design-System/Typographie";
 import Image from "next/image";
 import React from "react";
+import { FaChevronRight } from "react-icons/fa6";
 
 const CheckOut = () => {
   return (
-    <div className="container">
+    <div className="container pb-4">
       <NavBar />
       <div className=" mt-[100px] cart-container mx-auto flex justify-between gap-[100px]">
         <div className="space-y-[35px] flex-[2]">
-            
+          <div className="p-[30px] border border-cloud  rounded-[10px] space-y-[40px]">
+            <div className="flex items-center justify-between w-full">
+              <Typographie font="cooper" variant="h2">
+                Adresse d'expédition
+              </Typographie>
+              <Image
+                alt=""
+                src="/img/svg/mailbox.svg"
+                width={35}
+                height={35}
+              />
+            </div>
+
+            <form
+              action=""
+              className="space-y-[40px] w-full flex items-center flex-col"
+            >
+              <div className="flex w-full gap-2">
+                <div className="space-y-[8px] w-full">
+                  <Typographie variant="h3" font="ambit">
+                    Nom <span className="text-red">*</span>
+                  </Typographie>
+                  <Input placeholder="Enter votre nom de famille" />
+                </div>
+                <div className="space-y-[8px] w-full">
+                  <Typographie variant="h3" font="ambit">
+                    Prénom <span className="text-red">*</span>
+                  </Typographie>
+                  <Input placeholder="Enter votre Prénom" />
+                </div>
+              </div>
+              <hr className="w-full border border-cloud" />
+              <div className="space-y-[8px] w-full">
+                <Typographie variant="h3" font="ambit">
+                  Adresse de Livraison <span className="text-red">*</span>
+                </Typographie>
+                <div className="w-full flex gap-[15px]">
+                  <Input placeholder="Adresse" />
+                  <Input placeholder="Code Postale" />
+                  <Input placeholder="Ville" />
+                </div>
+                <div className="flex gap-[10px] items-center">
+                  <input type="checkbox" className="accent-secondary" />
+                  <Typographie font="ambit" variant="body-sm" theme="secondary">
+                    Adresse de facturation identique à l'adresse de livraison ?
+                  </Typographie>
+                </div>
+              </div>
+              <hr className="w-full border border-cloud" />
+              <div className="flex w-full gap-2">
+                <div className="space-y-[8px] w-full">
+                  <Typographie variant="h3" font="ambit">
+                    Email <span className="text-red">*</span>
+                  </Typographie>
+                  <Input variant="email" placeholder="exemple@email.com" />
+                </div>
+                <div className="space-y-[8px] w-full">
+                  <Typographie variant="h3" font="ambit">
+                    Numero de téléphone <span className="text-red">*</span>
+                  </Typographie>
+                  <Input variant="tel" placeholder="+33 06 03 69 41 20" />
+                </div>
+              </div>
+              <Button
+                className="w-[408px] flex justify-center"
+                variant="filled"
+                icon={{ icon: FaChevronRight }}
+              >
+                Continuer la Livraison
+              </Button>
+            </form>
+          </div>
+          <div className="flex items-center w-full gap-[20px]">
+            <div className="dashed"> </div>
+            <Typographie className="min-w-max" variant="h3">
+              PROCHAINE ETAPES
+            </Typographie>
+            <div className="dashed"> </div>
+          </div>
+          <div className="space-y-[25px] w-full">
+            <div className="flex items-center justify-between w-full p-[30px] border border-cloud bg-light rounded-[10px] ">
+              <Typographie font="cooper" variant="h2">
+                Livraison
+              </Typographie>
+              <Image alt="" src="/img/svg/box.svg" width={35} height={35} />
+            </div>
+            <div className="flex items-center justify-between w-full p-[30px] border border-cloud bg-light rounded-[10px] ">
+              <Typographie font="cooper" variant="h2">
+                Payement
+              </Typographie>
+              <Image alt="" src="/img/svg/cards.svg" width={35} height={35} />
+            </div>
+            <div className="flex items-center justify-between w-full p-[30px] border border-cloud bg-light rounded-[10px] ">
+              <Typographie font="cooper" variant="h2">
+                Résumé de la commande
+              </Typographie>
+              <Image
+                alt=""
+                src="/img/svg/shield-tick.svg"
+                width={35}
+                height={35}
+              />
+            </div>
+          </div>
         </div>
         <div className="space-y-[35px] flex-1">
           <Typographie font="cooper" variant="h2">
