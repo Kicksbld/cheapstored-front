@@ -53,10 +53,11 @@ const ProductPage = () => {
 
   return (
     <>
+     {isLoading && <p>Chargement...</p>}
+     {error && <p style={{ color: 'red' }}>{error.message}</p>}
      <Header 
         productName={product?.name || ""}
         productPrice={product?.price || 0}
-        productId={product?.id || 0}
       />
 
       <div className="container flex justify-between md:flex-row flex-col gap-4 pt-[50px] ">

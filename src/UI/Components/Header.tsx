@@ -7,7 +7,13 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { HiMinus } from "react-icons/hi";
 import { RiArrowRightSFill } from "react-icons/ri";
 
-const Header = ({ productName, productPrice }: any) => {
+interface Product {
+  productName: string;
+  productPrice: number;
+}
+
+
+const Header = ({ productName, productPrice }: Product) => {
   const [quantity, setQuantity] = useState(1);
 
   return (
