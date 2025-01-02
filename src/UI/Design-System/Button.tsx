@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import { Typographie } from "./Typographie";
 import localFont from "next/font/local";
 
 interface Props {

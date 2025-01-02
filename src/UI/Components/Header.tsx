@@ -7,8 +7,8 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { HiMinus } from "react-icons/hi";
 import { RiArrowRightSFill } from "react-icons/ri";
 
-const Header = ({ productName, productId, productPrice }: any) => {
-  let [quantity, setQuantity] = useState(1);
+const Header = ({ productName, productPrice }: any) => {
+  const [quantity, setQuantity] = useState(1);
 
   return (
     <div className="bg-[#F3EFE6] w-full h-screen">

@@ -1,4 +1,3 @@
-import CartProducts from "@/UI/Components/CartProducts";
 import NavBar from "@/UI/Components/navigation/NavBar";
 import { Button } from "@/UI/Design-System/Button";
 import { Input } from "@/UI/Design-System/Input";
@@ -16,7 +15,7 @@ const CheckOut = () => {
           <div className="p-[30px] border border-cloud  rounded-[10px] space-y-[40px]">
             <div className="flex items-center justify-between w-full">
               <Typographie font="cooper" variant="h2">
-                Adresse d'expédition
+                Adresse d&apos;expédition
               </Typographie>
               <Image
                 alt=""
@@ -57,7 +56,7 @@ const CheckOut = () => {
                 <div className="flex gap-[10px] items-center">
                   <input type="checkbox" className="accent-secondary" />
                   <Typographie font="ambit" variant="body-sm" theme="secondary">
-                    Adresse de facturation identique à l'adresse de livraison ?
+                    Adresse de facturation identique à l&apos;adresse de livraison ?
                   </Typographie>
                 </div>
               </div>

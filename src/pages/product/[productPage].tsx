@@ -6,7 +6,7 @@ import { IoChevronDownSharp } from "react-icons/io5";
 import { FiChevronUp } from "react-icons/fi";
 import { useRouter } from "next/router";
 
-const productPage = () => {
+const ProductPage = () => {
 
   const router = useRouter()
   const { productPage } = router.query; // Récupération de l'id à partir des paramètres dynamiques
@@ -132,4 +132,4 @@ const productPage = () => {
   );
 };
 
-export default productPage;
+export default ProductPage;
