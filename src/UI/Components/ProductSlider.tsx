@@ -6,18 +6,18 @@ import { Button } from "../Design-System/Button";
 const ProductSlider = () => {
   return (
     <div className="container">
-      <div className="flex items-center w-full justify-between mt-[47px] mb-[55px]">
+      <div className="flex items-center flex-wrap gap-4 w-full justify-between mt-[47px] mb-[55px]">
         <Typographie variant="h3" className="uppercase" font="cooper">
           • Le catalogue •
         </Typographie>
-        <div className="flex items-center gap-[10px]">
+        <div className="flex items-center  gap-[10px]">
           <Button variant="outline">Apple</Button>
           <Button>Samsung</Button>
         </div>
       </div>
-      <div className="w-full mb-[30px] flex gap-[30px]">
+      <div className="w-full mb-[30px] flex flex-wrap gap-[30px]">
         <div
-          className="relative w-full max-w-[400px] rounded-lg border border-cloud overflow-hidden bg-cover bg-no-repeat"
+          className="relative w-full max-w-[400px] aspect-square rounded-lg border border-cloud overflow-hidden bg-cover bg-no-repeat"
           style={{
             backgroundImage: "url(/img/png/cardimg.png)",
           }}

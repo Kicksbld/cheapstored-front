@@ -12,14 +12,13 @@ interface Product {
   productPrice: number;
 }
 
-
 const Header = ({ productName, productPrice }: Product) => {
   const [quantity, setQuantity] = useState(1);
 
   return (
-    <div className="bg-[#F3EFE6] w-full h-screen">
+    <div className="bg-[#F3EFE6] w-full">
       <div className="container h-full relative">
-        <div className="absolute right-0 md:top-1/2 top-[15%] cursor-pointer transform md:-translate-y-2/3 flex md:flex-col items-center gap-4">
+        <div className="absolute right-0 top-1/2 md:flex hidden cursor-pointer transform -translate-y-2/3 flex-col items-center gap-4">
           <div className="w-fit h-fit boxEffect rounded-[4px] cursor-pointer">
             <Image
               src="/img/png/airpodsBox.png"
@@ -45,27 +44,8 @@ const Header = ({ productName, productPrice }: Product) => {
             />
           </div>
         </div>
-        <div className="container flex flex-col h-full w-full justify-between">
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-2/3">
-            <Typographie
-              variant="display"
-              font="tungsten"
-              theme="light"
-              className=" header-text-stroke"
-            >
-              AIRPODS
-            </Typographie>
-          </div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-2/3">
-            <Image
-              src="/img/png/airpodsPng.png"
-              alt=""
-              width={592}
-              height={555}
-            />
-          </div>
-
-          <div>
+        <div className="container flex flex-col min-h-screen space-y-8 w-full justify-between items-center">
+          <div className="w-full">
             <NavBar />
             <div className="flex items-center gap-1 mt-[30px] cursor-pointer">
               <Typographie variant="body-xs" theme="grey" font="ambit">
@@ -81,7 +61,26 @@ const Header = ({ productName, productPrice }: Product) => {
               </Typographie>
             </div>
           </div>
-
+          <div className="relative">
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center gap-4">
+              <Typographie
+                variant="display"
+                font="tungsten"
+                theme="light"
+                className=" header-text-stroke"
+              >
+                AIRPODS
+              </Typographie>
+            </div>
+            <div className="relative z-10">
+              <Image
+                src="/img/png/airpodsPng.png"
+                alt=""
+                width={592}
+                height={555}
+              />
+            </div>
+          </div>
           <div className="flex items-center justify-between flex-col md:flex-row gap-8 w-full pb-[52px]">
             <div className="space-y-[10px] w-full  ">
               <Typographie
@@ -138,7 +137,11 @@ const Header = ({ productName, productPrice }: Product) => {
             </div>
 
             <div className="space-y-[15px] w-full flex flex-col md:items-end items-center ">
-              <Typographie variant="h3" font="ambit" className="md:text-end text-center max-w-[400px]">
+              <Typographie
+                variant="h3"
+                font="ambit"
+                className="md:text-end text-center max-w-[400px]"
+              >
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry. Lorem sum.
               </Typographie>
@@ -147,7 +150,9 @@ const Header = ({ productName, productPrice }: Product) => {
                   <HiMinus
                     className="text-black/70 cursor-pointer"
                     size={20}
-                    onClick={() => quantity > 1 ? setQuantity(quantity-1) : ""}
+                    onClick={() =>
+                      quantity > 1 ? setQuantity(quantity - 1) : ""
+                    }
                   />
                   <Typographie font="ambit" weight="semibold" variant="h3">
                     {quantity}

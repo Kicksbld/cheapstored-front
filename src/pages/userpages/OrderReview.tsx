@@ -7,7 +7,7 @@ const OrderReview = () => {
   return (
     <div className="container pb-4">
       <NavBar />
-      <div className="mt-[71px] space-y-[50px] max-w-[1027px]">
+      <div className=" mt-12 md:mt-[71px] space-y-[50px] max-w-[1027px]">
         <div className="space-y-[30px]">
           <Typographie variant="h2">
             Merci Beaucoup ! <br />

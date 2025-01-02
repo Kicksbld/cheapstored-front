@@ -9,7 +9,7 @@ const Cart = () => {
   return (
     <div className="container">
       <NavBar />
-      <div className=" mt-[100px] mx-auto flex flex-col lg:flex-row justify-between gap-[100px]">
+      <div className=" mt-12 md:mt-[100px] mx-auto flex flex-col lg:flex-row justify-between gap-[100px]">
         <div className="space-y-[35px] flex-[2]">
           <Typographie font="cooper" variant="h2">
             Détail de votre Panier
