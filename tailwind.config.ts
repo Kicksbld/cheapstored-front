@@ -12,25 +12,25 @@ export default {
   theme: {
     fontSize: {
       "4xl": [
-        "clamp(100px, 20.8333vw, 400px)",
+        "clamp(120px, 20.8333vw, 400px)",
         {
           fontWeight: "400",
         },
       ],
       "3xl": [
-        "48px",
+        "clamp(36px, 2.5vw, 48px)",
         {
           fontWeight: "400",
         },
       ],
       "2xl": [
-        "40px",
+        "clamp(28px, 2.083vw, 40px)",
         {
-          lineHeight: "50px",
+          lineHeight: "clamp(32px, 2.604vwvw, 50px)",
           fontWeight: "200",
         },
       ],
-      xl: ["20px", {}],
+      xl: ["clamp(16px, 1.042vwvw, 20px)", {}],
       base: ["16px", {}],
       sm: ["14px", {}],
       xs: ["12px", {}],

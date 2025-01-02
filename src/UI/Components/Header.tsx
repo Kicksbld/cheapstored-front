@@ -13,7 +13,7 @@ const Header = ({ productName, productId, productPrice }: any) => {
   return (
     <div className="bg-[#F3EFE6] w-full h-screen">
       <div className="container h-full relative">
-        <div className="space-y-[24px] absolute right-0 top-1/2 cursor-pointer transform -translate-y-2/3">
+        <div className="absolute right-0 md:top-1/2 top-[15%] cursor-pointer transform md:-translate-y-2/3 flex md:flex-col items-center gap-4">
           <div className="w-fit h-fit boxEffect rounded-[4px] cursor-pointer">
             <Image
               src="/img/png/airpodsBox.png"
@@ -76,7 +76,7 @@ const Header = ({ productName, productId, productPrice }: any) => {
             </div>
           </div>
 
-          <div className="flex items-center justify-between w-full pb-[52px]">
+          <div className="flex items-center justify-between flex-col md:flex-row gap-8 w-full pb-[52px]">
             <div className="space-y-[10px] w-full  ">
               <Typographie
                 variant="h3"
@@ -131,12 +131,12 @@ const Header = ({ productName, productId, productPrice }: any) => {
               </Typographie>
             </div>
 
-            <div className="space-y-[15px] w-full flex flex-col items-end">
-              <Typographie variant="h3" font="ambit" className="text-end">
+            <div className="space-y-[15px] w-full flex flex-col md:items-end items-center ">
+              <Typographie variant="h3" font="ambit" className="md:text-end text-center max-w-[400px]">
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry. Lorem sum.
               </Typographie>
-              <div className="flex items-center gap-[15px] w-max">
+              <div className="flex flex-wrap items-center gap-[15px] md:w-max">
                 <div className=" w-fit rounded-full flex items-center gap-[15px] px-[15px] py-[5px] border-2 border-black border-dashed">
                   <HiMinus
                     className="text-black/70 cursor-pointer"

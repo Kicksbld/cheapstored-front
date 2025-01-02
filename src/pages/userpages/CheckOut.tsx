@@ -11,8 +11,8 @@ const CheckOut = () => {
   return (
     <div className="container pb-4">
       <NavBar />
-      <div className=" mt-[100px] cart-container mx-auto flex justify-between gap-[100px]">
-        <div className="space-y-[35px] flex-[2]">
+      <div className=" mt-[100px] mx-auto flex flex-col lg:flex-row md:justify-between gap-[100px]">
+        <div className="space-y-[35px] lg:flex-[2] flex-1">
           <div className="p-[30px] border border-cloud  rounded-[10px] space-y-[40px]">
             <div className="flex items-center justify-between w-full">
               <Typographie font="cooper" variant="h2">
@@ -30,7 +30,7 @@ const CheckOut = () => {
               action=""
               className="space-y-[40px] w-full flex items-center flex-col"
             >
-              <div className="flex w-full gap-2">
+              <div className="flex w-full gap-2 flex-wrap md:flex-nowrap">
                 <div className="space-y-[8px] w-full">
                   <Typographie variant="h3" font="ambit">
                     Nom <span className="text-red">*</span>
@@ -49,7 +49,7 @@ const CheckOut = () => {
                 <Typographie variant="h3" font="ambit">
                   Adresse de Livraison <span className="text-red">*</span>
                 </Typographie>
-                <div className="w-full flex gap-[15px]">
+                <div className="w-full flex gap-[15px] flex-wrap md:flex-nowrap">
                   <Input placeholder="Adresse" />
                   <Input placeholder="Code Postale" />
                   <Input placeholder="Ville" />
@@ -62,7 +62,7 @@ const CheckOut = () => {
                 </div>
               </div>
               <hr className="w-full border border-cloud" />
-              <div className="flex w-full gap-2">
+              <div className="flex w-full gap-2 flex-wrap md:flex-nowrap">
                 <div className="space-y-[8px] w-full">
                   <Typographie variant="h3" font="ambit">
                     Email <span className="text-red">*</span>
@@ -77,7 +77,7 @@ const CheckOut = () => {
                 </div>
               </div>
               <Button
-                className="w-[408px] flex justify-center"
+                className="md:w-[408px] flex justify-center"
                 variant="filled"
                 icon={{ icon: FaChevronRight }}
               >
@@ -166,7 +166,7 @@ const CheckOut = () => {
                 </div>
                 <hr className="border border-cloud w-full" />
 
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between flex-wrap gap-4">
                   <div className="flex gap-[20px]">
                     <div className="w-max h-max">
                       <Image

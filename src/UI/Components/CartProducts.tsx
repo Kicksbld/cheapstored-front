@@ -7,7 +7,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 
 const CartProducts = () => {
   return (
-    <div className="w-full flex justify-between  bg-light border border-cloud rounded-[10px] p-[20px] items-start ">
+    <div className="w-full flex justify-between flex-col md:flex-row gap-4 bg-light border border-cloud rounded-[10px] p-[20px] items-start ">
       <div className="flex gap-[20px]">
         <div className="w-max h-max">
           <Image src="/img/png/airpod.png" alt="" width={54} height={50} />
@@ -47,7 +47,7 @@ const CartProducts = () => {
         </div>
       </div>
       <div className="flex items-center gap-[10px]">
-        <div className=" w-fit rounded-full flex items-center gap-[15px] px-[15px] py-[5px] border-2 border-cloud border-dashed">
+        <div className=" w-fit rounded-full flex items-center gap-[15px] px-[15px] py-[5px] border-2 border-grey border-dashed">
           <HiMinus className="text-black/70 cursor-pointer" size={20} />
           <Typographie font="ambit" weight="semibold" variant="h3">
             1

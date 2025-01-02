@@ -19,7 +19,7 @@ export const Input = ({ className, variant = "text", placeholder }: Props) => {
       className={clsx(
         Ambit.className,
         className,
-        "bg-light border-2 text-base outline-none border-cloud w-full  text-black/55 py-[15px] pl-[20px] rounded-[10px]"
+        "bg-light border-2 md:text-base text-sm outline-none border-cloud w-full  text-black/55 py-[15px] pl-[20px] rounded-[10px]"
       )}
     />
   );

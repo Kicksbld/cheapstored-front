@@ -88,7 +88,7 @@ export const Button = ({
       iconSize = 20;
       break;
     case "large":
-      sizeStyles = `text-xl ${
+      sizeStyles = `text-tag md:text-xl ${
         variant === "icon"
           ? " flex items-center justify-center w-[70px] h-[70px]"
           : "py-[10px] px-[25px]"

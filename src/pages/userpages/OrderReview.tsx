@@ -43,7 +43,7 @@ const OrderReview = () => {
           </div>
           <hr className="w-full border border-cloud" />
           <div className="space-y-[20px] w-full">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between flex-wrap gap-4">
               <div className="flex gap-[20px]">
                 <div className="w-max h-max">
                   <Image
@@ -133,7 +133,7 @@ const OrderReview = () => {
             />
           </div>
           <hr className="w-full border border-cloud" />
-          <div className="w-full flex gap-[50px]">
+          <div className="w-full flex gap-[50px] flex-wrap">
             <div className="space-y-[10px]">
               <Typographie font="ambit" theme="grey" weight="semibold">
                 Addresse d’expédition
@@ -177,7 +177,7 @@ const OrderReview = () => {
             <Image alt="" src="/img/svg/cards.svg" width={35} height={35} />
           </div>
           <hr className="w-full border border-cloud" />
-          <div className="w-full flex gap-[50px]">
+          <div className="w-full flex gap-[50px] flex-wrap">
             <div className="space-y-[10px]">
               <Typographie font="ambit" theme="grey" weight="semibold">
                 Méthode de payement
@@ -186,7 +186,7 @@ const OrderReview = () => {
                 Payement Manuel
               </Typographie>
             </div>
-            <div className="space-y-[10px]">
+            <div className="space-y-[10px] ">
               <Typographie font="ambit" theme="grey" weight="semibold">
                 Detail du payement
               </Typographie>

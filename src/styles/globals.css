@@ -15,8 +15,13 @@
 }
 
 .container {
-  max-width: calc(100% - 60px);
+  max-width: calc(100% - clamp(15px, 3.125vw, 60px));
   margin: 0 auto;
+}
+
+.product-img {
+  width: clamp(200px, 47.396vw, 700px);
+  aspect-ratio: 1/1;
 }
 
 .header-text-stroke {
@@ -30,10 +35,6 @@
 .boxEffectNotSelected {
   box-shadow: 0px 0px 0px 1px rgba(9, 9, 11, 0.08),
     0px 1px 2px -1px rgba(9, 9, 11, 0.08), 0px 2px 4px 0px rgba(9, 9, 11, 0.04);
-}
-
-.cart-container {
-  width: calc(100% - 70px);
 }
 
 .dashed {

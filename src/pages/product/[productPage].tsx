@@ -59,8 +59,8 @@ const productPage = () => {
         productId={product?.id || 0}
       />
 
-      <div className="container flex justify-between pt-[50px] ">
-        <div className="space-y-[22px]  ">
+      <div className="container flex justify-between md:flex-row flex-col gap-4 pt-[50px] ">
+        <div className="space-y-[22px] w-full md:max-w-[50%]">
           <div className="flex items-center gap-[10px]">
             <Image
               alt=""
@@ -119,7 +119,7 @@ const productPage = () => {
           </div>
         </div>
         <div
-          className="w-[910px] h-[640px] border border-cloud"
+          className="product-img aspect-square border border-cloud"
           style={{
             backgroundImage: "url(/img/png/airpodsPng.png)",
             backgroundRepeat: "no-repeat",
