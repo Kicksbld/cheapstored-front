@@ -46,3 +46,13 @@
 input[type="checkbox"] {
   color: #af7302;
 }
+
+.bg-login {
+  background: url("/img/png/bg-login.avif") no-repeat;
+  background-size: cover;
+}
+
+.bg-signin{
+  background: url("/img/png/bg-signin.avif") no-repeat;
+  background-size: cover;
+}
