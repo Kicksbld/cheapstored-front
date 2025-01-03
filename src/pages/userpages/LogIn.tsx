@@ -45,7 +45,7 @@ const LogIn = () => {
               <Input variant="password" placeholder="votre mot de passe" />
             </div>
             <Button size="large" className="w-full" variant="filled">
-              S'inscrire
+              S&apos;inscrire
             </Button>
           </form>
         </div>

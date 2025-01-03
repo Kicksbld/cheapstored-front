@@ -1,4 +1,3 @@
-import NavBar from "@/UI/Components/navigation/NavBar";
 import { Button } from "@/UI/Design-System/Button";
 import { Input } from "@/UI/Design-System/Input";
 import { Typographie } from "@/UI/Design-System/Typographie";
@@ -15,7 +14,7 @@ const SignIn = () => {
               Bienvenue sur Cheapstored, <br /> Connecter vous pour Continuer.
             </Typographie>
             <Typographie font="ambit" variant="tag-title">
-              Vous n'avez pas de compte?
+              Vous n&apos; avez pas de compte?
               <span className="underline text-blue cursor-pointer"> Creer un compte</span>{" "}
               <br /> Cela prendra moin de une minutes
             </Typographie>
