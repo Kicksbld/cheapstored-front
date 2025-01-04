@@ -3,7 +3,6 @@ import { Button } from "@/UI/Design-System/Button";
 import { Input } from "@/UI/Design-System/Input";
 import { Typographie } from "@/UI/Design-System/Typographie";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { FaChevronRight } from "react-icons/fa6";
