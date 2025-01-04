@@ -16,6 +16,7 @@ interface Props {
   iconPosition?: "left" | "right";
   className?: string;
   children?: React.ReactNode;
+  type?: "button" | "submit" | "reset";
   onClick?: React.MouseEventHandler<HTMLButtonElement>; // Ajout de la prop onClick
 }
 
@@ -28,6 +29,7 @@ export const Button = ({
   className,
   variant = "accent",
   icon,
+  type = "button",
   iconTheme = "accent",
   iconPosition = "right",
   children,
@@ -78,7 +80,7 @@ export const Button = ({
           ? " flex items-center justify-center w-[40px] h-[40px]"
           : "py-[5px] px-[15px]"
       }`;
-      iconSize = 18;
+      iconSize = 15;
       break;
     case "medium":
       sizeStyles = `text-tag ${
@@ -86,7 +88,7 @@ export const Button = ({
           ? " flex items-center justify-center w-[50px] h-[50px]"
           : "py-[8px] px-[20px]"
       }`;
-      iconSize = 20;
+      iconSize = 18;
       break;
     case "large":
       sizeStyles = `text-tag md:text-xl ${
@@ -94,13 +96,13 @@ export const Button = ({
           ? " flex items-center justify-center w-[70px] h-[70px]"
           : "py-[10px] px-[25px]"
       }`;
-      iconSize = 25;
+      iconSize = 20;
       break;
   }
 
   return (
     <button
-      type="button"
+      type={type}
       className={clsx(
         Ambit.className,
         variantStyles,

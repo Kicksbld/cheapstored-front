@@ -1,9 +1,78 @@
 import NavBar from "@/UI/Components/navigation/NavBar";
 import { Typographie } from "@/UI/Design-System/Typographie";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
+
+interface UserData {
+  lastName: string;
+  firstName: string;
+  address: string;
+  postalCode: string;
+  city: string;
+  email: string;
+  phoneNumber: string;
+}
+
+interface Product {
+  productName: string;
+  productPrice: number;
+  quantity: number;
+}
 
 const OrderReview = () => {
+  const [cart, setCart] = useState<Product[]>([]);
+  const [userData, setUserData] = useState<UserData>({
+    lastName: "",
+    firstName: "",
+    address: "",
+    postalCode: "",
+    city: "",
+    email: "",
+    phoneNumber: "",
+  });
+
+  useEffect(() => {
+    const cartStorage = localStorage.getItem("cart");
+
+    if (cartStorage) {
+      try {
+        const parsedCart = JSON.parse(cartStorage);
+        if (Array.isArray(parsedCart)) {
+          setCart(parsedCart);
+        } else {
+          console.error("Le panier dans localStorage est mal formaté.");
+        }
+      } catch (e) {
+        console.error(
+          "Erreur lors du parsing du panier depuis localStorage.",
+          e
+        );
+      }
+    }
+    if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
+      const storedUserData = localStorage.getItem("userData");
+      if (storedUserData) {
+        const parsedUserData = JSON.parse(storedUserData);
+        if (Array.isArray(parsedUserData) && parsedUserData.length > 0) {
+          setUserData(parsedUserData[0]);
+        }
+      }
+    }
+  }, []);
+
+  const calculateSubtotal = () => {
+    return cart.reduce(
+      (total, product) => total + product.productPrice * product.quantity,
+      0
+    );
+  };
+
+  const deliveryCost = 0;
+
+  const taxes = 5.49;
+
+  const totalTTC = calculateSubtotal() + deliveryCost + taxes;
+
   return (
     <div className="container pb-4">
       <NavBar />
@@ -19,7 +88,7 @@ const OrderReview = () => {
           <div className="space-y-[15px]">
             <Typographie variant="tag-title" theme="secondary">
               Nous vous avons envoyer les details de la confirmation de votre
-              commande a l’addrese suivante: exemple@email.com
+              commande a l’addrese suivante: {userData.email}
             </Typographie>
             <Typographie variant="tag-title">
               Date de la commande: Samedi 17 Nov 2024
@@ -43,54 +112,60 @@ const OrderReview = () => {
           </div>
           <hr className="w-full border border-cloud" />
           <div className="space-y-[20px] w-full">
-            <div className="flex items-center justify-between flex-wrap gap-4">
-              <div className="flex gap-[20px]">
-                <div className="w-max h-max">
-                  <Image
-                    src="/img/png/airpod.png"
-                    alt=""
-                    width={54}
-                    height={50}
-                  />
-                </div>
-                <div className="space-y-[10px]">
-                  <Typographie variant="body-sm" theme="dark" font="ambit">
-                    Apple Airpods Max
-                  </Typographie>
-                  <Typographie
-                    variant="body-sm"
-                    theme="grey"
-                    font="ambit"
-                    className="underline"
+            {cart.length > 0 ? (
+              cart.map((product, index) => (
+                <>
+                  <div
+                    key={index}
+                    className="flex items-center justify-between flex-wrap gap-4"
                   >
-                    Retour gratuit sous 3 jours
-                  </Typographie>
-                </div>
-              </div>
-              <div>
-                <Typographie variant="body-sm" theme="grey" font="ambit">
-                  1 * 434,00€
-                </Typographie>
-                <Typographie
-                  className="line-through"
-                  variant="body-sm"
-                  theme="grey"
-                  font="ambit"
-                >
-                  434,00€
-                </Typographie>
-                <Typographie variant="body-sm" theme="modify" font="ambit">
-                  277.00€
-                </Typographie>
-              </div>
-            </div>
-            <hr className="border border-cloud w-full" />
+                    <div className="flex gap-[20px]">
+                      <div className="w-max h-max">
+                        <Image
+                          src="/img/png/airpod.png"
+                          alt=""
+                          width={54}
+                          height={50}
+                        />
+                      </div>
+                      <div className="space-y-[10px]">
+                        <Typographie
+                          variant="body-sm"
+                          theme="dark"
+                          font="ambit"
+                        >
+                          {product.productName}
+                        </Typographie>
+                        <Typographie
+                          variant="body-sm"
+                          theme="grey"
+                          font="ambit"
+                          className="underline"
+                        >
+                          Retour gratuit sous 3 jours
+                        </Typographie>
+                      </div>
+                    </div>
+                    <div>
+                      <Typographie variant="body-sm" theme="grey" font="ambit">
+                        {product.quantity} * {product.productPrice} €
+                      </Typographie>
+                    </div>
+                  </div>
+                  <hr className="border border-cloud w-full" />
+                </>
+              ))
+            ) : (
+              <Typographie variant="body-sm" theme="grey" font="ambit">
+                Aucun produit n&apos;a été trouvé.
+              </Typographie>
+            )}
             <div className="flex justify-between items-center ">
               <Typographie font="ambit" variant="body-sm">
                 Sous-total
               </Typographie>
               <Typographie font="ambit" variant="body-sm">
-                579 €
+                {calculateSubtotal()} €
               </Typographie>
             </div>
             <div className="flex justify-between items-center">
@@ -98,7 +173,7 @@ const OrderReview = () => {
                 Livraison
               </Typographie>
               <Typographie font="ambit" variant="body-sm">
-                0,00 €
+                {deliveryCost.toFixed(2)} €
               </Typographie>
             </div>
             <div className="flex justify-between items-center">
@@ -106,7 +181,7 @@ const OrderReview = () => {
                 Frais de sercice & Taxes
               </Typographie>
               <Typographie font="ambit" variant="body-sm">
-                5.49 €
+                {taxes.toFixed(2)} €
               </Typographie>
             </div>
             <hr className="border border-cloud w-full" />
@@ -115,7 +190,7 @@ const OrderReview = () => {
                 Total TTC
               </Typographie>
               <Typographie font="ambit" variant="body-sm">
-                584.49 €
+                {totalTTC.toFixed(2)} €
               </Typographie>
             </div>
           </div>
@@ -139,16 +214,13 @@ const OrderReview = () => {
                 Addresse d’expédition
               </Typographie>
               <Typographie font="ambit" theme="grey">
-                John Doe
+                {userData.lastName} {userData.firstName}
               </Typographie>
               <Typographie font="ambit" theme="grey">
-                15 Rue de la République
+                {userData.address}
               </Typographie>
               <Typographie font="ambit" theme="grey">
-                75000, Paris
-              </Typographie>
-              <Typographie font="ambit" theme="grey">
-                FR
+                {userData.postalCode}, {userData.city}
               </Typographie>
             </div>
             <div className="space-y-[10px]">
@@ -156,7 +228,10 @@ const OrderReview = () => {
                 Contact
               </Typographie>
               <Typographie font="ambit" theme="grey">
-                exemple@email.com
+                {userData.email}
+              </Typographie>
+              <Typographie font="ambit" theme="grey">
+                {userData.phoneNumber}
               </Typographie>
             </div>
             <div className="space-y-[10px]">
@@ -164,7 +239,7 @@ const OrderReview = () => {
                 Méthode
               </Typographie>
               <Typographie font="ambit" theme="grey">
-                Expedition Standard (€10,00)
+                Expedition Standard (3-5 jours)
               </Typographie>
             </div>
           </div>
@@ -183,7 +258,7 @@ const OrderReview = () => {
                 Méthode de payement
               </Typographie>
               <Typographie font="ambit" theme="grey">
-                Payement Manuel
+                Stripe Payement
               </Typographie>
             </div>
             <div className="space-y-[10px] ">
@@ -191,7 +266,7 @@ const OrderReview = () => {
                 Detail du payement
               </Typographie>
               <Typographie font="ambit" theme="grey">
-                €10,00 payé le 17/11/2024 a 12:16:27
+                €{totalTTC.toFixed(2)} payé le 17/11/2024 a 12:16:27
               </Typographie>
             </div>
           </div>
