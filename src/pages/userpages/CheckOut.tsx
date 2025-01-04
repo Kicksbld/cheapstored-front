@@ -3,28 +3,77 @@ import { Button } from "@/UI/Design-System/Button";
 import { Input } from "@/UI/Design-System/Input";
 import { Typographie } from "@/UI/Design-System/Typographie";
 import Image from "next/image";
-import React from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 import { FaChevronRight } from "react-icons/fa6";
 
+interface Product {
+  productName: string;
+  productPrice: number;
+  quantity: number;
+}
+
 const CheckOut = () => {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push("/userpages/Cart");
+  };
+
+  const [cart, setCart] = useState<Product[]>([]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
+      const cartStorage = localStorage.getItem("cart");
+
+      if (cartStorage) {
+        try {
+          const parsedCart = JSON.parse(cartStorage);
+          if (Array.isArray(parsedCart)) {
+            setCart(parsedCart);
+          } else {
+            console.error("Le panier dans localStorage est mal formaté.");
+          }
+        } catch (e) {
+          console.error(
+            "Erreur lors du parsing du panier depuis localStorage.",
+            e
+          );
+        }
+      }
+    }
+  }, []);
+
+  // Calculate the subtotal of the cart (sum of prices * quantity)
+  const calculateSubtotal = () => {
+    return cart.reduce(
+      (total, product) => total + product.productPrice * product.quantity,
+      0
+    );
+  };
+
+  // Delivery cost is set to 0
+  const deliveryCost = 0;
+
+  // Taxes are fixed as 5.49€
+  const taxes = 5.49;
+
+  // Total TTC (including subtotal + delivery + taxes)
+  const totalTTC = calculateSubtotal() + deliveryCost + taxes;
+
   return (
     <div className="container pb-4">
       <NavBar />
-      <div className=" mt-12 md:mt-[100px] mx-auto flex flex-col lg:flex-row md:justify-between gap-[100px]">
+      <div className="mt-12 md:mt-[100px] mx-auto flex flex-col lg:flex-row md:justify-between gap-[100px]">
         <div className="space-y-[35px] lg:flex-[2] flex-1">
-          <div className="p-[30px] border border-cloud  rounded-[10px] space-y-[40px]">
+          <div className="p-[30px] border border-cloud rounded-[10px] space-y-[40px]">
             <div className="flex items-center justify-between w-full">
               <Typographie font="cooper" variant="h2">
                 Adresse d&apos;expédition
               </Typographie>
-              <Image
-                alt=""
-                src="/img/svg/mailbox.svg"
-                width={35}
-                height={35}
-              />
+              <Image alt="" src="/img/svg/mailbox.svg" width={35} height={35} />
             </div>
-
             <form
               action=""
               className="space-y-[40px] w-full flex items-center flex-col"
@@ -56,7 +105,8 @@ const CheckOut = () => {
                 <div className="flex gap-[10px] items-center">
                   <input type="checkbox" className="accent-secondary" />
                   <Typographie font="ambit" variant="body-sm" theme="secondary">
-                    Adresse de facturation identique à l&apos;adresse de livraison ?
+                    Adresse de facturation identique à l&apos;adresse de
+                    livraison ?
                   </Typographie>
                 </div>
               </div>
@@ -144,7 +194,7 @@ const CheckOut = () => {
                     Sous-total
                   </Typographie>
                   <Typographie font="ambit" variant="body-sm">
-                    579 €
+                    {calculateSubtotal()} €
                   </Typographie>
                 </div>
                 <div className="flex justify-between items-center">
@@ -152,73 +202,83 @@ const CheckOut = () => {
                     Livraison
                   </Typographie>
                   <Typographie font="ambit" variant="body-sm">
-                    0,00 €
+                    {deliveryCost.toFixed(2)} €
                   </Typographie>
                 </div>
                 <div className="flex justify-between items-center">
                   <Typographie font="ambit" variant="body-sm">
-                    Frais de sercice & Taxes
+                    Frais de service & Taxes
                   </Typographie>
                   <Typographie font="ambit" variant="body-sm">
-                    5.49 €
+                    {taxes.toFixed(2)} €
                   </Typographie>
                 </div>
                 <hr className="border border-cloud w-full" />
-
-                <div className="flex items-center justify-between flex-wrap gap-4">
-                  <div className="flex gap-[20px]">
-                    <div className="w-max h-max">
-                      <Image
-                        src="/img/png/airpod.png"
-                        alt=""
-                        width={54}
-                        height={50}
-                      />
-                    </div>
-
-                    <div className="space-y-[10px]">
-                      <Typographie variant="body-sm" theme="dark" font="ambit">
-                        Apple Airpods Max
-                      </Typographie>
-                      <Typographie
-                        variant="body-sm"
-                        theme="grey"
-                        font="ambit"
-                        className="underline"
+                {cart.length > 0 ? (
+                  cart.map((product, index) => (
+                    <>
+                      <div
+                        key={index}
+                        className="flex items-center justify-between flex-wrap gap-4"
                       >
-                        Retour gratuit sous 3 jours
-                      </Typographie>
-                    </div>
-                  </div>
-                  <div>
-                    <Typographie variant="body-sm" theme="grey" font="ambit">
-                      1 * 434,00€
-                    </Typographie>
-                    <Typographie
-                      className="line-through"
-                      variant="body-sm"
-                      theme="grey"
-                      font="ambit"
-                    >
-                      434,00€
-                    </Typographie>
-                    <Typographie variant="body-sm" theme="modify" font="ambit">
-                      277.00€
-                    </Typographie>
-                  </div>
-                </div>
-                <hr className="border border-cloud w-full" />
+                        <div className="flex gap-[20px]">
+                          <div className="w-max h-max">
+                            <Image
+                              src="/img/png/airpod.png"
+                              alt=""
+                              width={54}
+                              height={50}
+                            />
+                          </div>
+                          <div className="space-y-[10px]">
+                            <Typographie
+                              variant="body-sm"
+                              theme="dark"
+                              font="ambit"
+                            >
+                              {product.productName}
+                            </Typographie>
+                            <Typographie
+                              variant="body-sm"
+                              theme="grey"
+                              font="ambit"
+                              className="underline"
+                            >
+                              Retour gratuit sous 3 jours
+                            </Typographie>
+                          </div>
+                        </div>
+                        <div>
+                          <Typographie
+                            variant="body-sm"
+                            theme="grey"
+                            font="ambit"
+                          >
+                            {product.quantity} * {product.productPrice} €
+                          </Typographie>
+                        </div>
+                      </div>
+                      <hr className="border border-cloud w-full" />
+                    </>
+                  ))
+                ) : (
+                  <Typographie variant="body-sm" theme="grey" font="ambit">
+                    Aucun produit n&apos;a été trouvé.
+                  </Typographie>
+                )}
+
                 <div className="flex justify-between items-center">
                   <Typographie font="ambit" variant="body-sm">
                     Total TTC
                   </Typographie>
                   <Typographie font="ambit" variant="body-sm">
-                    584.49 €
+                    {totalTTC.toFixed(2)} €
                   </Typographie>
                 </div>
                 <hr className="border border-cloud w-full" />
-                <Button size="large" className="w-full" variant="filled">
-                  Modifié votre panier
+
+                <Button onClick={handleClick} size="large" className="w-full" variant="filled">
+                  Modifiez votre panier
                 </Button>
               </div>
             </div>

@@ -12,8 +12,24 @@ interface Product {
   productPrice: number;
 }
 
+
 const Header = ({ productName, productPrice }: Product) => {
+
   const [quantity, setQuantity] = useState(1);
+
+  const handleAddToCart = () => {
+    let cartStorage = [];
+    if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
+      const existingCart = localStorage.getItem("cart");
+      if (existingCart) {
+        cartStorage = JSON.parse(existingCart);
+      }
+      cartStorage.push({ productName, productPrice, quantity: quantity });
+      localStorage.setItem("cart", JSON.stringify(cartStorage));
+    } else {
+      console.log("localStorage is not available");
+    }
+  };
 
   return (
     <div className="bg-[#F3EFE6] w-full">
@@ -163,7 +179,10 @@ const Header = ({ productName, productPrice }: Product) => {
                     size={20}
                   />
                 </div>
-                <Button>Ajouter au panier - {productPrice} €</Button>
+
+                <Button onClick={() => handleAddToCart()}>
+                  Ajouter au panier - {productPrice} €
+                </Button>
               </div>
             </div>
           </div>

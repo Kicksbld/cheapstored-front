@@ -16,6 +16,7 @@ interface Props {
   iconPosition?: "left" | "right";
   className?: string;
   children?: React.ReactNode;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>; // Ajout de la prop onClick
 }
 
 const Ambit = localFont({
@@ -30,6 +31,7 @@ export const Button = ({
   iconTheme = "accent",
   iconPosition = "right",
   children,
+  onClick, // Récupérer la prop onClick
 }: Props) => {
   let variantStyles: string = "",
     sizeStyles: string = "",
@@ -97,34 +99,29 @@ export const Button = ({
   }
 
   return (
-    <>
-      <button
-        type="button"
-        className={clsx(
-          Ambit.className,
-          variantStyles,
-          sizeStyles,
-          iconSize,
-          
-          className
-        )}
-      >
-        {icon && variant === "icon" ? (
-          <icon.icon size={iconSize} />
-        ) : (
-          <>
-            <div className={clsx(icon && "flex items-center gap-2")}>
-              {icon && iconPosition === "left" && <icon.icon size={iconSize} />}
+    <button
+      type="button"
+      className={clsx(
+        Ambit.className,
+        variantStyles,
+        sizeStyles,
+        iconSize,
+        "cursor-pointer",
+        className
+      )}
+      onClick={onClick} // Ajout de onClick ici
+    >
+      {icon && variant === "icon" ? (
+        <icon.icon size={iconSize} />
+      ) : (
+        <div className={clsx(icon && "flex items-center gap-2")}>
+          {icon && iconPosition === "left" && <icon.icon size={iconSize} />}
 
-              {children}
+          {children}
 
-              {icon && iconPosition === "right" && (
-                <icon.icon size={iconSize} />
-              )}
-            </div>
-          </>
-        )}
-      </button>
-    </>
+          {icon && iconPosition === "right" && <icon.icon size={iconSize} />}
+        </div>
+      )}
+    </button>
   );
 };
