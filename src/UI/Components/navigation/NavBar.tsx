@@ -1,6 +1,7 @@
 import { Typographie } from "@/UI/Design-System/Typographie";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 
 const NavBar = () => {
@@ -11,7 +12,7 @@ const NavBar = () => {
           <Image alt="" src="/img/svg/CST.svg" width={44} height={24} />
         </Link>
       </div>
-      <ul className=" items-center gap-[21px] hidden md:flex ">
+      {/* <ul className=" items-center gap-[21px] hidden md:flex ">
         <Typographie className="w-max cursor-pointer" font="ambit">
           Explore
         </Typographie>
@@ -27,11 +28,13 @@ const NavBar = () => {
         <Typographie className="w-max cursor-pointer" font="ambit">
           About Us
         </Typographie>
-      </ul>
+      </ul> */}
       <div className="flex items-center w-full justify-end gap-[21px]">
-        <Typographie className="cursor-pointer" font="ambit">
-          Se connecter
-        </Typographie>
+        <Link href="/userpages/LogIn">
+          <Typographie className="cursor-pointer" font="ambit">
+            Se connecter
+          </Typographie>
+        </Link>
         <div className="flex items-center gap-[10px] cursor-pointer">
           <Image alt="" src="/img/svg/cart.svg" width={20} height={20} />
           <Link href="/userpages/Cart">

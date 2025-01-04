@@ -1,24 +1,27 @@
 import { Button } from "@/UI/Design-System/Button";
 import { Input } from "@/UI/Design-System/Input";
 import { Typographie } from "@/UI/Design-System/Typographie";
+import Link from "next/link";
 import React from "react";
 
 const LogIn = () => {
   return (
     <div className="w-full flex ">
-      <div className="hidden flex-1 h-screen bg-signin md:flex"></div>
+      <div className="hidden flex-1 h-screen bg-login md:flex"></div>
       <div className="flex flex-1 items-center justify-center min-h-screen p-4">
         <div className="space-y-[50px] max-w-[600px]">
           <div className="space-y-[20px]">
             <Typographie font="cooper" variant="h2">
-              Bienvenue sur Cheapstored, <br /> Creer un compte pour Continuer.
+              Bienvenue sur Cheapstored, <br /> Connecter vous pour Continuer.
             </Typographie>
             <Typographie font="ambit" variant="tag-title">
-              Vous avez deja un compte?
-              <span className="underline text-blue cursor-pointer">
-                {" "}
-                Connecter vous
-              </span>{" "}
+              Vous n&apos; avez pas de compte?
+              <Link href="/userpages/SignIn">
+                <span className="underline text-blue cursor-pointer">
+                  {" "}
+                  Creer un compte
+                </span>{" "}
+              </Link>
               <br /> Cela prendra moin de une minutes
             </Typographie>
           </div>
@@ -38,14 +41,16 @@ const LogIn = () => {
               </Typographie>
               <Input variant="password" placeholder="votre mot de passe" />
             </div>
-            <div className="space-y-[10px] w-full">
-              <Typographie variant="h3" font="ambit">
-                Repéter le Mot de passe
-              </Typographie>
-              <Input variant="password" placeholder="votre mot de passe" />
-            </div>
+            <Typographie
+              theme="secondary"
+              variant="h3"
+              className="underline cursor-pointer"
+              font="ambit"
+            >
+              Mot de passe oublié?
+            </Typographie>
             <Button size="large" className="w-full" variant="filled">
-              S&apos;inscrire
+              Se Connecter
             </Button>
           </form>
         </div>
