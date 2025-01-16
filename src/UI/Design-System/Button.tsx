@@ -17,7 +17,8 @@ interface Props {
   className?: string;
   children?: React.ReactNode;
   type?: "button" | "submit" | "reset";
-  onClick?: React.MouseEventHandler<HTMLButtonElement>; // Ajout de la prop onClick
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  disabled?: boolean; // Ajout de la prop disabled
 }
 
 const Ambit = localFont({
@@ -33,7 +34,8 @@ export const Button = ({
   iconTheme = "accent",
   iconPosition = "right",
   children,
-  onClick, // Récupérer la prop onClick
+  onClick,
+  disabled = false, // Ajout de la valeur par défaut
 }: Props) => {
   let variantStyles: string = "",
     sizeStyles: string = "",
@@ -109,9 +111,11 @@ export const Button = ({
         sizeStyles,
         iconSize,
         "cursor-pointer",
+        disabled && "cursor-not-allowed opacity-50", // Appliquer les styles désactivés
         className
       )}
-      onClick={onClick} // Ajout de onClick ici
+      onClick={disabled ? undefined : onClick} // Désactiver onClick si disabled est vrai
+      disabled={disabled} // Passer la prop disabled au bouton
     >
       {icon && variant === "icon" ? (
         <icon.icon size={iconSize} />

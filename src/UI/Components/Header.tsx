@@ -12,11 +12,13 @@ import Link from "next/link";
 interface Product {
   productName: string;
   productPrice: number;
+  productQuantity: number;
 }
 
-const Header = ({ productName, productPrice }: Product) => {
+const Header = ({ productName, productPrice, productQuantity }: Product) => {
   const [quantity, setQuantity] = useState(1);
   const pathname = usePathname();
+  console.log(productQuantity);
 
   const handleAddToCart = () => {
     let cartStorage = [];
@@ -76,7 +78,7 @@ const Header = ({ productName, productPrice }: Product) => {
                 <Typographie variant="body-xs" theme="grey" font="ambit">
                   {productName}
                 </Typographie>
-                <RiArrowRightSFill size={15} className="text-grey" />
+              
               </div>
             )}
           </div>
@@ -102,15 +104,27 @@ const Header = ({ productName, productPrice }: Product) => {
           </div>
           <div className="flex items-center justify-between flex-col md:flex-row gap-8 w-full pb-[52px]">
             <div className="space-y-[10px] w-full  ">
-              <Typographie
-                variant="h3"
-                theme="green"
-                font="ambit"
-                weight="semibold"
-                className="uppercase"
-              >
-                • Stock disponible •
-              </Typographie>
+              {productQuantity < 1 ? (
+                <Typographie
+                  variant="h3"
+                  theme="error"
+                  font="ambit"
+                  weight="semibold"
+                  className="uppercase"
+                >
+                  • Stock Indisponible •
+                </Typographie>
+              ) : (
+                <Typographie
+                  variant="h3"
+                  theme="green"
+                  font="ambit"
+                  weight="semibold"
+                  className="uppercase"
+                >
+                  • Stock disponible •
+                </Typographie>
+              )}
               <Typographie
                 variant="h1"
                 font="cooper"
@@ -183,7 +197,15 @@ const Header = ({ productName, productPrice }: Product) => {
                   />
                 </div>
 
-                <Button onClick={() => handleAddToCart()}>
+                <Button
+                  className={productQuantity < 1 ? "cursor-not-allowed" : ""}
+                  onClick={() => {
+                    if (productQuantity > 0) {
+                      handleAddToCart(); // La fonction n'est appelée que si la quantité est suffisante
+                    }
+                  }}
+                  disabled={productQuantity < 1} // Désactive le bouton si la quantité est inférieure à 1
+                >
                   Ajouter au panier - {productPrice} €
                 </Button>
               </div>

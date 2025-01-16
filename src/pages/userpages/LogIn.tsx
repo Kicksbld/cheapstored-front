@@ -61,6 +61,7 @@ const LogIn = () => {
 
         // Stockage du token dans le localStorage (ou un cookie)
         localStorage.setItem("authToken", token);
+        localStorage.setItem("userConnectedData", JSON.stringify(user));
         console.log("Connexion réussie !");
         router.push("/");
       } else {

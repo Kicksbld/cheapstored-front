@@ -95,7 +95,7 @@ const CheckOut = () => {
   return (
     <div className="container pb-4">
       <NavBar />
-      <div className="mt-12 md:mt-[100px] mx-auto flex flex-col lg:flex-row md:justify-between gap-[100px]">
+      <div className="mt-12 page-container md:mt-[100px] mx-auto flex flex-col lg:flex-row md:justify-between gap-[100px]">
         <div className="space-y-[35px] lg:flex-[2] flex-1">
           <div className="p-[30px] border border-cloud rounded-[10px] space-y-[40px]">
             <div className="flex items-center justify-between w-full">

@@ -1,7 +1,9 @@
-import NavBar from "@/UI/Components/navigation/NavBar";
+import { Button } from "@/UI/Design-System/Button";
 import { Typographie } from "@/UI/Design-System/Typographie";
 import Image from "next/image";
+
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 interface UserData {
   lastName: string;
@@ -30,6 +32,7 @@ const OrderReview = () => {
     email: "",
     phoneNumber: "",
   });
+  const router = useRouter();
 
   useEffect(() => {
     const cartStorage = localStorage.getItem("cart");
@@ -75,7 +78,6 @@ const OrderReview = () => {
 
   return (
     <div className="container pb-4">
-      <NavBar />
       <div className=" mt-12 md:mt-[71px] space-y-[50px] max-w-[1027px]">
         <div className="space-y-[30px]">
           <Typographie variant="h2">
@@ -97,6 +99,10 @@ const OrderReview = () => {
               Numero de commande: 3
             </Typographie>
           </div>
+
+          <Button onClick={() => router.push("/")}>
+            Retourner a l&apos;accueil
+          </Button>
         </div>
         <div className="w-full p-[30px] border border-cloud bg-light rounded-[10px] space-y-[20px] ">
           <div className="flex items-center justify-between w-full">
@@ -271,6 +277,7 @@ const OrderReview = () => {
             </div>
           </div>
         </div>
+
         <div className="space-y-[15px]">
           <Typographie font="ambit" theme="grey" weight="semibold">
             Besoin d’aide ?

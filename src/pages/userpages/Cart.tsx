@@ -12,11 +12,10 @@ interface Product {
 }
 
 const Cart = () => {
-
   const router = useRouter();
 
   const handleClick = () => {
-    router.push('/userpages/CheckOut');
+    router.push("/userpages/CheckOut");
   };
 
   const [cart, setCart] = useState<Product[]>([]);
@@ -88,7 +87,7 @@ const Cart = () => {
   return (
     <div className="container">
       <NavBar />
-      <div className="mt-12 md:mt-[100px] mx-auto flex flex-col lg:flex-row justify-between gap-[100px]">
+      <div className="mt-12 md:mt-[100px] flex flex-col lg:flex-row justify-between gap-[100px] page-container">
         <div className="space-y-[35px] flex-[2]">
           <Typographie font="cooper" variant="h2">
             Détail de votre Panier
@@ -115,69 +114,85 @@ const Cart = () => {
         </div>
 
         {/* Summary section */}
-        <div className="space-y-[35px] flex-1">
-          <Typographie font="cooper" variant="h2">
-            Récapitulatif
-          </Typographie>
-          <div className="space-y-[15px]">
-            <div className="border border-cloud rounded-[10px] p-[20px] bg-light space-y-[15px]">
-              <div className="flex justify-between items-center ">
-                <Typographie font="ambit" variant="body-sm">
-                  Code activé
-                </Typographie>
-                <div className="w-max rounded-[5px] border border-[#A8F3D0] bg-[#D1FAE5] px-[7px] py-[2px]">
-                  <Typographie theme="green" font="ambit" variant="body-sm">
-                    NOEL20
-                  </Typographie>
-                </div>
-              </div>
-              <Button size="large" className="w-full" variant="outline">
-                modifier code de promotion
-              </Button>
-            </div>
-            <div className="p-[20px] border border-cloud bg-light rounded-[10px]">
-              <div className="space-y-[20px] w-full">
+        {cart.length > 0 ? (
+          <div className="space-y-[35px] flex-1">
+            <Typographie font="cooper" variant="h2">
+              Récapitulatif
+            </Typographie>
+            <div className="space-y-[15px]">
+              <div className="border border-cloud rounded-[10px] p-[20px] bg-light space-y-[15px]">
                 <div className="flex justify-between items-center ">
                   <Typographie font="ambit" variant="body-sm">
-                    Sous-total
+                    Code activé
                   </Typographie>
-                  <Typographie font="ambit" variant="body-sm">
-                    {getSubtotal()} €
-                  </Typographie>
+                  <div className="w-max rounded-[5px] border border-[#A8F3D0] bg-[#D1FAE5] px-[7px] py-[2px]">
+                    <Typographie theme="green" font="ambit" variant="body-sm">
+                      NOEL20
+                    </Typographie>
+                  </div>
                 </div>
-                <div className="flex justify-between items-center">
-                  <Typographie font="ambit" variant="body-sm">
-                    Livraison
-                  </Typographie>
-                  <Typographie font="ambit" variant="body-sm">
-                    {deliveryCost.toFixed(2)} €
-                  </Typographie>
-                </div>
-                <div className="flex justify-between items-center">
-                  <Typographie font="ambit" variant="body-sm">
-                    Frais de service & Taxes
-                  </Typographie>
-                  <Typographie font="ambit" variant="body-sm">
-                    {taxes.toFixed(2)} €
-                  </Typographie>
-                </div>
-                <hr className="border border-cloud w-full" />
-                <div className="flex justify-between items-center">
-                  <Typographie font="ambit" variant="body-sm">
-                    Total TTC
-                  </Typographie>
-                  <Typographie font="ambit" variant="body-sm">
-                    {getTotalTTC().toFixed(2)} €
-                  </Typographie>
-                </div>
-                <hr className="border border-cloud w-full" />
-                  <Button onClick={handleClick} size="large" className="w-full" variant="filled">
+                <Button size="large" className="w-full" variant="outline">
+                  modifier code de promotion
+                </Button>
+              </div>
+              <div className="p-[20px] border border-cloud bg-light rounded-[10px]">
+                <div className="space-y-[20px] w-full">
+                  <div className="flex justify-between items-center ">
+                    <Typographie font="ambit" variant="body-sm">
+                      Sous-total
+                    </Typographie>
+                    <Typographie font="ambit" variant="body-sm">
+                      {getSubtotal()} €
+                    </Typographie>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <Typographie font="ambit" variant="body-sm">
+                      Livraison
+                    </Typographie>
+                    <Typographie font="ambit" variant="body-sm">
+                      {deliveryCost.toFixed(2)} €
+                    </Typographie>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <Typographie font="ambit" variant="body-sm">
+                      Frais de service & Taxes
+                    </Typographie>
+                    <Typographie font="ambit" variant="body-sm">
+                      {taxes.toFixed(2)} €
+                    </Typographie>
+                  </div>
+                  <hr className="border border-cloud w-full" />
+                  <div className="flex justify-between items-center">
+                    <Typographie font="ambit" variant="body-sm">
+                      Total TTC
+                    </Typographie>
+                    <Typographie font="ambit" variant="body-sm">
+                      {getTotalTTC().toFixed(2)} €
+                    </Typographie>
+                  </div>
+                  <hr className="border border-cloud w-full" />
+                  <Button
+                    onClick={handleClick}
+                    size="large"
+                    className="w-full"
+                    variant="filled"
+                  >
                     Continuer - {getTotalTTC().toFixed(2)} €
                   </Button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <div className="space-y-[35px] flex-1">
+            <Typographie font="cooper" variant="h2">
+              Récapitulatif
+            </Typographie>
+            <Typographie variant="body-sm" theme="grey" font="ambit">
+                Aucun Résumé de commande.
+              </Typographie>
+          </div>
+        )}
       </div>
     </div>
   );

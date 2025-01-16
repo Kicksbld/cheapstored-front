@@ -8,6 +8,7 @@ export default function Home() {
       <Header
         productName={"Test"}
         productPrice={0}
+        productQuantity={0}
       />
       <HomeSwiper />
       <ProductSlider />
