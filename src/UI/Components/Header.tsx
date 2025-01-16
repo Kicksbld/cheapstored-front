@@ -6,16 +6,17 @@ import Image from "next/image";
 import { AiOutlinePlus } from "react-icons/ai";
 import { HiMinus } from "react-icons/hi";
 import { RiArrowRightSFill } from "react-icons/ri";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 interface Product {
   productName: string;
   productPrice: number;
 }
 
-
 const Header = ({ productName, productPrice }: Product) => {
-
   const [quantity, setQuantity] = useState(1);
+  const pathname = usePathname();
 
   const handleAddToCart = () => {
     let cartStorage = [];
@@ -63,19 +64,21 @@ const Header = ({ productName, productPrice }: Product) => {
         <div className="container flex flex-col min-h-screen space-y-8 w-full justify-between items-center">
           <div className="w-full">
             <NavBar />
-            <div className="flex items-center gap-1 mt-[30px] cursor-pointer">
-              <Typographie variant="body-xs" theme="grey" font="ambit">
-                Breadscrumb
-              </Typographie>
-              <RiArrowRightSFill size={15} className="text-grey" />
-              <Typographie variant="body-xs" theme="grey" font="ambit">
-                Breadscrumb
-              </Typographie>
-              <RiArrowRightSFill size={15} className="text-grey" />
-              <Typographie variant="body-xs" theme="grey" font="ambit">
-                Breadscrumb
-              </Typographie>
-            </div>
+            {pathname !== "/" && (
+              <div className="flex items-center gap-1 mt-[30px] cursor-pointer">
+                <Link href="/">
+                  <Typographie variant="body-xs" theme="grey" font="ambit">
+                    Accueil
+                  </Typographie>
+                </Link>
+
+                <RiArrowRightSFill size={15} className="text-grey" />
+                <Typographie variant="body-xs" theme="grey" font="ambit">
+                  {productName}
+                </Typographie>
+                <RiArrowRightSFill size={15} className="text-grey" />
+              </div>
+            )}
           </div>
           <div className="relative">
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center gap-4">
