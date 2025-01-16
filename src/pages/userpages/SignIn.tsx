@@ -90,7 +90,7 @@ const SignIn = () => {
                     Connectez-vous
                   </span>
                 </Link>
-                <br /> Cela prendra moins d'une minute
+                <br /> Cela prendra moins d&apos;une minute
               </Typographie>
             )}
             {step === 2 && (
