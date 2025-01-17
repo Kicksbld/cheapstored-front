@@ -75,8 +75,8 @@ const ProductCards: React.FC<ProductCardsProps> = ({ chosenCat }) => {
   return (
     <>
       {filteredProducts.map((product) => (
-        <Link href={`/product/${product.id}`} key={product.id}>
-          <div className="flex flex-col justify-center p-[20px] cursor-pointer bg-light gap-[20px] max-w-[313px] rounded-[10px] border border-cloud">
+        <Link className="w-full" href={`/product/${product.id}`} key={product.id}>
+          <div className="flex flex-col justify-center p-[20px] cursor-pointer bg-light gap-[20px] w-full rounded-[10px] border border-cloud">
             <Image
               src="/img/png/airpod.png"
               alt="Product Image"

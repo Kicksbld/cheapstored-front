@@ -93,7 +93,7 @@ const Header = ({ productName, productPrice, productQuantity }: Product) => {
                 AIRPODS
               </Typographie>
             </div>
-            <div className="relative z-10">
+            <div className="relative z-10 imgHeader ">
               <Image
                 src="/img/png/airpodsPng.png"
                 alt=""
@@ -133,7 +133,7 @@ const Header = ({ productName, productPrice, productQuantity }: Product) => {
                 {productName}
               </Typographie>
             </div>
-            <div className="flex flex-col items-center gap-[20px] w-full">
+            <div className="flex flex-col sm:items-center gap-[20px] w-full">
               <div className="flex items-center gap-[10px] cursor-pointer">
                 <div className="p-[5px] bg-white w-fit rounded-full border border-grey">
                   <Image
@@ -169,11 +169,11 @@ const Header = ({ productName, productPrice, productQuantity }: Product) => {
               </Typographie>
             </div>
 
-            <div className="space-y-[15px] w-full flex flex-col md:items-end items-center ">
+            <div className="space-y-[15px] w-full flex flex-col md:items-end  ">
               <Typographie
                 variant="h3"
                 font="ambit"
-                className="md:text-end text-center max-w-[400px]"
+                className="md:text-end sm:text-center max-w-[400px]"
               >
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry. Lorem sum.

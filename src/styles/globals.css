@@ -62,3 +62,7 @@ input[type="checkbox"] {
   background: url("/img/png/bg-signin.avif") no-repeat;
   background-size: cover;
 }
+
+.imgHeader {
+  max-width: clamp(200px, 30.833vw, 592px);
+}

@@ -33,19 +33,7 @@ const ProductSlider = () => {
           </Button>
         </div>
       </div>
-      <div className="w-full mb-[30px] flex flex-wrap gap-[30px]">
-        <div
-          className="relative w-full max-w-[400px] aspect-square rounded-lg border border-cloud overflow-hidden bg-cover bg-no-repeat"
-          style={{
-            backgroundImage: "url(/img/png/cardimg.png)",
-          }}
-        >
-          <div className="absolute bottom-4 left-4 sm:left-6 lg:left-8 max-w-[90%]">
-            <Typographie variant="h3" font="ambit">
-              Remise de 20% la première semaine
-            </Typographie>
-          </div>
-        </div>
+      <div className="w-full mb-[30px] grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-[30px]">
         <ProductCards chosenCat={chosenCat} />
       </div>
     </div>
