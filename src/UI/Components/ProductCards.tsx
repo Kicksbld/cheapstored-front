@@ -75,14 +75,21 @@ const ProductCards: React.FC<ProductCardsProps> = ({ chosenCat }) => {
   return (
     <>
       {filteredProducts.map((product) => (
-        <Link className="w-full" href={`/product/${product.id}`} key={product.id}>
+        <Link
+          className="w-full"
+          href={`/product/${product.id}`}
+          key={product.id}
+        >
           <div className="flex flex-col justify-center p-[20px] cursor-pointer bg-light gap-[20px] w-full rounded-[10px] border border-cloud">
-            <Image
-              src="/img/png/airpod.png"
-              alt="Product Image"
-              width={230}
-              height={230}
-            />
+            <div className="w-full aspect-square relative ">
+              <Image
+                src="/img/png/airpod.png"
+                alt="Product Image"
+                fill
+                className="object-cover"
+              />
+            </div>
+
             <div className="space-y-[20px]">
               <div className="space-y-[6px]">
                 <Typographie

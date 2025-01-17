@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const HomeSwiper = () => {
   return (
-    <div className="w-full py-[25px] bg-[#6D4701] overflow-hidden">
+    <div className="w-full py-[10px] md:py-[25px] bg-[#6D4701] overflow-hidden">
       <div className="flex w-max items-center gap-[40px] animate-slider">
         <Typographie className="uppercase" theme="light" variant="h2">
           Remise de 20% la première semaine

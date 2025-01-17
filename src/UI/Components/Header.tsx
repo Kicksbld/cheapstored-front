@@ -18,7 +18,6 @@ interface Product {
 const Header = ({ productName, productPrice, productQuantity }: Product) => {
   const [quantity, setQuantity] = useState(1);
   const pathname = usePathname();
-  console.log(productQuantity);
 
   const handleAddToCart = () => {
     let cartStorage = [];
@@ -187,7 +186,7 @@ const Header = ({ productName, productPrice, productQuantity }: Product) => {
                       quantity > 1 ? setQuantity(quantity - 1) : ""
                     }
                   />
-                  <Typographie font="ambit" weight="semibold" variant="h3">
+                  <Typographie className="w-[20px] text-center" font="ambit" weight="semibold" variant="h3">
                     {quantity}
                   </Typographie>
                   <AiOutlinePlus
