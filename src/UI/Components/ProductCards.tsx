@@ -13,6 +13,13 @@ type Product = {
   name: string;
   price: number;
   category: Category; // Catégorie modifiée pour être un objet avec 'name'
+  images: Image[];
+};
+
+type Image = {
+  id: number; // Identifiant unique de l'image
+  url: string; // URL de l'image
+  src: string; // Texte alternatif pour l'image
 };
 
 type Error = {
@@ -83,8 +90,9 @@ const ProductCards: React.FC<ProductCardsProps> = ({ chosenCat }) => {
           <div className="flex flex-col justify-center p-[20px] cursor-pointer bg-light gap-[20px] w-full rounded-[10px] border border-cloud">
             <div className="w-full aspect-square relative ">
               <Image
-                src="/img/png/airpod.png"
-                alt="Product Image"
+                key={product.images[0].id}
+                src={product.images[0].src}
+                alt=""
                 fill
                 className="object-cover"
               />

@@ -1,15 +1,11 @@
-import Header from "@/UI/Components/Header";
+import HeaderProduct from "@/UI/Components/HeaderProduct";
 import HomeSwiper from "@/UI/Components/HomeSwiper";
 import ProductSlider from "@/UI/Components/ProductSlider";
 
 export default function Home() {
   return (
     <div className="">
-      <Header
-        productName={"Test"}
-        productPrice={0}
-        productQuantity={0}
-      />
+      <HeaderProduct />
       <HomeSwiper />
       <ProductSlider />
     </div>

@@ -13,10 +13,22 @@ interface Product {
   productName: string;
   productPrice: number;
   productQuantity: number;
+  productImages: ImageType[];
 }
 
-const Header = ({ productName, productPrice, productQuantity }: Product) => {
+type ImageType = {
+  id: number; // Identifiant unique de l'image
+  src: string; // URL de l'image
+};
+
+const Header = ({
+  productName,
+  productPrice,
+  productQuantity,
+  productImages,
+}: Product) => {
   const [quantity, setQuantity] = useState(1);
+  const [selectedImageId, setSelectedImageId] = useState(productImages[0]?.id); // Initialise avec la première image
   const pathname = usePathname();
 
   const handleAddToCart = () => {
@@ -26,41 +38,32 @@ const Header = ({ productName, productPrice, productQuantity }: Product) => {
       if (existingCart) {
         cartStorage = JSON.parse(existingCart);
       }
-      cartStorage.push({ productName, productPrice, quantity: quantity });
+      cartStorage.push({ productName, productPrice, quantity });
       localStorage.setItem("cart", JSON.stringify(cartStorage));
     } else {
       console.log("localStorage is not available");
     }
   };
 
+  const handleImageClick = (id: number) => {
+    setSelectedImageId(id); // Met à jour l'image sélectionnée
+  };
+
   return (
     <div className="bg-[#F3EFE6] w-full">
       <div className="container h-full relative">
         <div className="absolute right-0 top-1/2 md:flex hidden cursor-pointer transform -translate-y-2/3 flex-col items-center gap-4">
-          <div className="w-fit h-fit boxEffect rounded-[4px] cursor-pointer">
-            <Image
-              src="/img/png/airpodsBox.png"
-              alt=""
-              width={128}
-              height={88}
-            />
-          </div>
-          <div className="w-fit h-fit boxEffectNotSelected rounded-[4px]">
-            <Image
-              src="/img/png/airpodsBox.png"
-              alt=""
-              width={128}
-              height={88}
-            />
-          </div>
-          <div className="w-fit h-fit boxEffectNotSelected rounded-[4px]">
-            <Image
-              src="/img/png/airpodsBox.png"
-              alt=""
-              width={128}
-              height={88}
-            />
-          </div>
+          {productImages.map((item) => (
+            <div
+              key={item.id}
+              className={`${
+                selectedImageId === item.id ? "boxEffect" : "boxEffectNotSelected"
+              } rounded-[4px] cursor-pointer w-[128px] h-[88px] relative`}
+              onClick={() => handleImageClick(item.id)} // Gérer le clic
+            >
+              <Image src={item.src} alt="" fill className="object-contain" />
+            </div>
+          ))}
         </div>
         <div className="container flex flex-col min-h-screen space-y-8 w-full justify-between items-center">
           <div className="w-full">
@@ -77,7 +80,6 @@ const Header = ({ productName, productPrice, productQuantity }: Product) => {
                 <Typographie variant="body-xs" theme="grey" font="ambit">
                   {productName}
                 </Typographie>
-              
               </div>
             )}
           </div>
@@ -87,14 +89,15 @@ const Header = ({ productName, productPrice, productQuantity }: Product) => {
                 variant="display"
                 font="tungsten"
                 theme="light"
-                className=" header-text-stroke"
+                className="header-text-stroke"
               >
                 AIRPODS
               </Typographie>
             </div>
-            <div className="relative z-10 imgHeader ">
+            <div className="relative z-10 imgHeader">
               <Image
-                src="/img/png/airpodsPng.png"
+                key={selectedImageId} // Met à jour l'image principale
+                src={productImages.find((img) => img.id === selectedImageId)?.src || ""}
                 alt=""
                 width={592}
                 height={555}
@@ -102,7 +105,7 @@ const Header = ({ productName, productPrice, productQuantity }: Product) => {
             </div>
           </div>
           <div className="flex items-center justify-between flex-col md:flex-row gap-8 w-full pb-[52px]">
-            <div className="space-y-[10px] w-full  ">
+            <div className="space-y-[10px] w-full">
               {productQuantity < 1 ? (
                 <Typographie
                   variant="h3"
@@ -132,43 +135,7 @@ const Header = ({ productName, productPrice, productQuantity }: Product) => {
                 {productName}
               </Typographie>
             </div>
-            <div className="flex flex-col sm:items-center gap-[20px] w-full">
-              <div className="flex items-center gap-[10px] cursor-pointer">
-                <div className="p-[5px] bg-white w-fit rounded-full border border-grey">
-                  <Image
-                    alt=""
-                    src="/img/png/color.png"
-                    width={30}
-                    height={30}
-                  />
-                </div>
-                <div className="p-[5px]  w-fit rounded-full  ">
-                  <Image
-                    alt=""
-                    src="/img/png/color.png"
-                    width={30}
-                    height={30}
-                  />
-                </div>
-                <div className="p-[5px]  w-fit rounded-full  ">
-                  <Image
-                    alt=""
-                    src="/img/png/color.png"
-                    width={30}
-                    height={30}
-                  />
-                </div>
-              </div>
-              <Typographie
-                variant="body-base"
-                className="text-black/50"
-                font="ambit"
-              >
-                Couleur: Mauve
-              </Typographie>
-            </div>
-
-            <div className="space-y-[15px] w-full flex flex-col md:items-end  ">
+            <div className="space-y-[15px] w-full flex flex-col md:items-end">
               <Typographie
                 variant="h3"
                 font="ambit"
@@ -178,15 +145,18 @@ const Header = ({ productName, productPrice, productQuantity }: Product) => {
                 industry. Lorem sum.
               </Typographie>
               <div className="flex flex-wrap items-center gap-[15px] md:w-max">
-                <div className=" w-fit rounded-full flex items-center gap-[15px] px-[15px] py-[5px] border-2 border-black border-dashed">
+                <div className="w-fit rounded-full flex items-center gap-[15px] px-[15px] py-[5px] border-2 border-black border-dashed">
                   <HiMinus
                     className="text-black/70 cursor-pointer"
                     size={20}
-                    onClick={() =>
-                      quantity > 1 ? setQuantity(quantity - 1) : ""
-                    }
+                    onClick={() => (quantity > 1 ? setQuantity(quantity - 1) : null)}
                   />
-                  <Typographie className="w-[20px] text-center" font="ambit" weight="semibold" variant="h3">
+                  <Typographie
+                    className="w-[20px] text-center"
+                    font="ambit"
+                    weight="semibold"
+                    variant="h3"
+                  >
                     {quantity}
                   </Typographie>
                   <AiOutlinePlus
@@ -200,10 +170,10 @@ const Header = ({ productName, productPrice, productQuantity }: Product) => {
                   className={productQuantity < 1 ? "cursor-not-allowed" : ""}
                   onClick={() => {
                     if (productQuantity > 0) {
-                      handleAddToCart(); // La fonction n'est appelée que si la quantité est suffisante
+                      handleAddToCart();
                     }
                   }}
-                  disabled={productQuantity < 1} // Désactive le bouton si la quantité est inférieure à 1
+                  disabled={productQuantity < 1}
                 >
                   Ajouter au panier - {productPrice} €
                 </Button>
