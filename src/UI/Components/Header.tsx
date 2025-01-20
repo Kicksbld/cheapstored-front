@@ -89,9 +89,9 @@ const Header = ({
                 variant="display"
                 font="tungsten"
                 theme="light"
-                className="header-text-stroke"
+                className="header-text-stroke uppercase w-max" 
               >
-                AIRPODS
+                {productName}
               </Typographie>
             </div>
             <div className="relative z-10 imgHeader">

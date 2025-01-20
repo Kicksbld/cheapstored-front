@@ -70,7 +70,16 @@ const ProductPage = () => {
         productName={product.name}
         productPrice={product.price}
         productQuantity={product.quantity}
-        productImages={product.images}
+        productImages={
+          product.images && product.images.length > 0
+            ? product.images
+            : [
+                {
+                  id: 8,
+                  src: "/img/png/defaultImg.png",
+                },
+              ]
+        }
       />
       <div className="container flex justify-between md:flex-row flex-col gap-4 pt-[50px]">
         <div className="space-y-[22px] w-full md:max-w-[50%]">

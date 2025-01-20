@@ -71,7 +71,16 @@ const HeaderProduct = () => {
       productName={headerProduct.name || ""}
       productPrice={headerProduct.price || 0}
       productQuantity={headerProduct.quantity || 0}
-      productImages={headerProduct.images}
+      productImages={
+        headerProduct.images && headerProduct.images.length > 0
+          ? headerProduct.images
+          : [
+              {
+                id: 8,
+                src: "/img/png/defaultImg.png",
+              },
+            ]
+      }
     />
   );
 };

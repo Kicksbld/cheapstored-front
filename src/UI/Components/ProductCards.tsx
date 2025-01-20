@@ -90,9 +90,9 @@ const ProductCards: React.FC<ProductCardsProps> = ({ chosenCat }) => {
           <div className="flex flex-col justify-center p-[20px] cursor-pointer bg-light gap-[20px] w-full rounded-[10px] border border-cloud">
             <div className="w-full aspect-square relative ">
               <Image
-                key={product.images[0].id}
-                src={product.images[0].src}
-                alt=""
+                key={product.images?.[0]?.id || `default-${product.id}`}
+                src={product.images?.[0]?.src || "/img/png/defaultImg.png"}
+                alt={product.images?.[0]?.src || "Image par défaut"}
                 fill
                 className="object-cover"
               />
