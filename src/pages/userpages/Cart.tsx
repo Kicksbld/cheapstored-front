@@ -9,7 +9,15 @@ interface Product {
   productName: string;
   productPrice: number;
   quantity: number;
+  productQuantity: number;
+  productImages: ImageType[];
 }
+
+type ImageType = {
+  id: number; // Identifiant unique de l'image
+  src: string; // URL de l'image
+};
+
 
 const Cart = () => {
   const router = useRouter();
@@ -52,15 +60,23 @@ const Cart = () => {
   };
 
   const changeQuantity = (index: number, delta: number) => {
-    // Prevent quantity from going below 1
-    const updatedCart = cart.map((product, i) =>
-      i === index
-        ? {
-            ...product,
-            quantity: Math.max(product.quantity + delta, 1), // Ensure quantity is at least 1
-          }
-        : product
-    );
+    const updatedCart = cart.map((product, i) => {
+      if (i === index) {
+        const newQuantity = Math.min(
+            Math.max(product.quantity + delta, 1), // Minimum 1
+            product.productQuantity,
+        );
+
+
+
+        return {
+          ...product,
+          quantity: newQuantity,
+        };
+      }
+      return product;
+    });
+
     setCart(updatedCart);
 
     if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
@@ -68,13 +84,17 @@ const Cart = () => {
     }
   };
 
+
+
   // Calculate the total price of the cart
   const getSubtotal = () => {
-    return cart.reduce(
-      (total, product) => total + product.productPrice * product.quantity,
-      0
+    const subtotal = cart.reduce(
+        (total, product) => total + product.productPrice * product.quantity,
+        0
     );
+    return parseFloat(subtotal.toFixed(2)); // Arrondi à 2 décimales
   };
+
 
   const deliveryCost = 0; // Static delivery cost
   const taxes = 5.49; // Fixed taxes
@@ -103,6 +123,7 @@ const Cart = () => {
                   quantity={product.quantity}
                   onDelete={removeProduct} // Pass the removeProduct function
                   onQuantityChange={changeQuantity} // Pass the changeQuantity function
+                  image={product.productImages[0].src}
                 />
               ))
             ) : (

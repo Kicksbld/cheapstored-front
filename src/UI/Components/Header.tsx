@@ -38,7 +38,7 @@ const Header = ({
       if (existingCart) {
         cartStorage = JSON.parse(existingCart);
       }
-      cartStorage.push({ productName, productPrice, quantity });
+      cartStorage.push({ productName, productPrice, quantity, productQuantity, productImages });
       localStorage.setItem("cart", JSON.stringify(cartStorage));
     } else {
       console.log("localStorage is not available");
@@ -160,7 +160,7 @@ const Header = ({
                     {quantity}
                   </Typographie>
                   <AiOutlinePlus
-                    onClick={() => setQuantity(quantity + 1)}
+                    onClick={() => (quantity < productQuantity ? setQuantity(quantity + 1) : null) }
                     className="text-black/70 cursor-pointer"
                     size={20}
                   />
