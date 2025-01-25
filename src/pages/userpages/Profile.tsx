@@ -8,9 +8,9 @@ const Profile = () => {
     <div className="container pb-4">
       <NavBar />
       <div className="max-w-[1338px] px-4 mx-auto pt-[134px] flex gap-[210px]">
-        <div className="space-y-[20px] flex-1 ">
+        <div className="space-y-[20px]">
           <div className="flex items-center justify-between cursor-pointer">
-            <Typographie font="ambit" weight="semibold">
+            <Typographie font="ambit" weight="semibold" className="w-max">
               Mon compte
             </Typographie>
             <Image
@@ -22,14 +22,14 @@ const Profile = () => {
           </div>
           <div className="w-full h-[1px] bg-cloud"></div>
           <div className="flex items-center justify-between cursor-pointer">
-            <Typographie font="ambit" weight="semibold">
+            <Typographie font="ambit" weight="semibold" className="w-max">
               Adresse
             </Typographie>
             <Image src="/img/svg/truck.svg" width={20} height={20} alt="truk" />
           </div>
           <div className="w-full h-[1px] bg-cloud"></div>
           <div className="flex items-center justify-between cursor-pointer">
-            <Typographie font="ambit" weight="semibold" theme="error">
+            <Typographie font="ambit" weight="semibold" theme="error" className="w-max">
               Se deconnecter
             </Typographie>
             <Image
@@ -41,7 +41,7 @@ const Profile = () => {
           </div>
         </div>
         <div>
-          <div className="flex-[4] space-y-[50px]">
+          <div className=" space-y-[50px]">
             <div>
               <Typographie variant="h2">Mon Profile</Typographie>
               <Typographie theme="secondary" font="ambit">

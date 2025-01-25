@@ -15,8 +15,13 @@ type Product = {
     price: number;
     quantity: number;
     categoryId: number;
-    images: any[]; // Ajustez selon vos besoins
+    images: Image[]
 };
+
+type Image = {
+    id: number;
+    src: string;
+}
 
 const ProductSlider = () => {
     const [chosenCat, setChosenCat] = useState("all");
@@ -59,7 +64,7 @@ const ProductSlider = () => {
                 <Typographie variant="h3" className="uppercase" font="cooper">
                     • Le catalogue •
                 </Typographie>
-                <div className="flex items-center gap-[10px]">
+                <div className="flex items-center gap-[10px] overflow-x-auto w-full flex-row-reverse ">
                     {categories.map((category) => (
                         <Button
                             key={category}
