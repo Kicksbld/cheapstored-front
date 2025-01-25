@@ -64,7 +64,7 @@ const ProductSlider = () => {
                 <Typographie variant="h3" className="uppercase" font="cooper">
                     • Le catalogue •
                 </Typographie>
-                <div className="flex items-center gap-[10px] overflow-x-auto w-full flex-row-reverse ">
+                <div className="flex items-center gap-[10px] overflow-x-auto flex-row-reverse ">
                     {categories.map((category) => (
                         <Button
                             key={category}
