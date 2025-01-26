@@ -14,6 +14,7 @@ interface Product {
   productPrice: number;
   productQuantity: number;
   productImages: ImageType[];
+  productShortDescription: string;
 }
 
 type ImageType = {
@@ -25,7 +26,7 @@ const Header = ({
   productName,
   productPrice,
   productQuantity,
-  productImages,
+  productImages, productShortDescription,
 }: Product) => {
   const [quantity, setQuantity] = useState(1);
   const [selectedImageId, setSelectedImageId] = useState(productImages[0]?.id); // Initialise avec la première image
@@ -52,13 +53,13 @@ const Header = ({
   return (
     <div className="bg-[#F3EFE6] w-full">
       <div className="container h-full relative">
-        <div className="absolute right-0 top-1/2 md:flex hidden cursor-pointer transform -translate-y-2/3 flex-col items-center gap-4">
+        <div className="absolute right-1/2  z-[200] top-[130px] md:right-0 md:top-1/2 flex md:flex-col flex-row cursor-pointer transform md:-translate-y-2/3 md:translate-x-0 translate-x-1/2  items-center gap-4">
           {productImages.map((item) => (
             <div
               key={item.id}
               className={`${
                 selectedImageId === item.id ? "boxEffect" : "boxEffectNotSelected"
-              } rounded-[4px] cursor-pointer w-[128px] h-[88px] relative`}
+              } rounded-[4px] cursor-pointer md:w-[128px] md:h-[88px] w-[90px] h-[55px]  relative`}
               onClick={() => handleImageClick(item.id)} // Gérer le clic
             >
               <Image src={item.src} alt="" fill className="object-contain" />
@@ -141,8 +142,7 @@ const Header = ({
                 font="ambit"
                 className="md:text-end sm:text-center max-w-[400px]"
               >
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem sum.
+                {productShortDescription}
               </Typographie>
               <div className="flex flex-wrap items-center gap-[15px] md:w-max">
                 <div className="w-fit rounded-full flex items-center gap-[15px] px-[15px] py-[5px] border-2 border-black border-dashed">

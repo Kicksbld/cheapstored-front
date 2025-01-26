@@ -21,6 +21,8 @@ const ProductPage = () => {
         quantity: number;
         price: number;
         images: Image[]; // Tableau d'images
+        shortDesc?: string;
+        longDesc?: string;
     };
 
     const PRODUCT_URL = `/api/productSlug?page=${productPage}`;
@@ -68,6 +70,7 @@ const ProductPage = () => {
             <Header
                 productName={product.name}
                 productPrice={product.price}
+                productShortDescription={product.shortDesc || ""}
                 productQuantity={product.quantity}
                 productImages={
                     product.images && product.images.length > 0
@@ -80,7 +83,7 @@ const ProductPage = () => {
                         ]
                 }
             />
-            <div className="container flex justify-between md:flex-row flex-col gap-4 pt-[50px]">
+            <div className="container flex justify-between md:flex-row flex-col gap-4 pt-[50px] pb-4">
                 <div className="space-y-[22px] w-full md:max-w-[50%]">
                     <div className="flex items-center gap-[10px]">
                         <Image
@@ -102,7 +105,7 @@ const ProductPage = () => {
                         Les caractéristiques : {product.name}
                     </Typographie>
                     <div className="space-y-[15px]">
-                        <Accordion />
+                        <Accordion description={product.longDesc} />
 
 
                     </div>

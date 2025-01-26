@@ -12,7 +12,7 @@ export default {
   theme: {
     fontSize: {
       "4xl": [
-        "clamp(120px, 20.8333vw, 400px)",
+        "clamp(100px, 20.8333vw, 400px)",
         {
           fontWeight: "400",
         },

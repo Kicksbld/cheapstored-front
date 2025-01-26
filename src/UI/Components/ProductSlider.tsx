@@ -64,7 +64,7 @@ const ProductSlider = () => {
                 <Typographie variant="h3" className="uppercase" font="cooper">
                     • Le catalogue •
                 </Typographie>
-                <div className="flex items-center gap-[10px] overflow-x-auto flex-row-reverse ">
+                <div className="flex items-center gap-[10px] overflow-x-scroll flex-row-reverse ">
                     {categories.map((category) => (
                         <Button
                             key={category}
@@ -82,7 +82,7 @@ const ProductSlider = () => {
                     </Button>
                 </div>
             </div>
-            <div className="w-full mb-[30px] grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-[30px]">
+            <div className="w-full mb-[30px] grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 md:gap-[30px] gap-[15px]">
                 <ProductCards chosenCat={chosenCat} />
             </div>
         </div>

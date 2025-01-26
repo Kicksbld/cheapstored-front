@@ -1,13 +1,16 @@
-import React, { useState } from "react";
-import { FiChevronUp, FiChevronDown } from "react-icons/fi";
-import { Typographie } from "@/UI/Design-System/Typographie";
+import React, {useState} from "react";
+import {FiChevronUp, FiChevronDown} from "react-icons/fi";
+import {Typographie} from "@/UI/Design-System/Typographie";
 
-const AccordionItem = ({
-                           title,
-                           content,
-                       }: {
+
+type Productinfo = {
+    description: string;
+}
+
+const AccordionItem = ({title, content,}: {
     title: string;
     content: string;
+
 }) => {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -21,9 +24,9 @@ const AccordionItem = ({
                     {title}
                 </Typographie>
                 {isOpen ? (
-                    <FiChevronUp size={20} className="text-grey transition-transform" />
+                    <FiChevronUp size={20} className="text-grey transition-transform"/>
                 ) : (
-                    <FiChevronDown size={20} className="text-grey transition-transform" />
+                    <FiChevronDown size={20} className="text-grey transition-transform"/>
                 )}
             </div>
             <div
@@ -41,15 +44,15 @@ const AccordionItem = ({
     );
 };
 
-const Accordion = () => {
+const Accordion = ({description}: Productinfo) => {
     return (
         <div className="space-y-[15px]">
             <AccordionItem
                 title="Informations du produit"
-                content="Instant page load and navigation with React’s streaming and optimistic updates."
+                content={description}
             />
             <AccordionItem
-                title="Autres caractéristiques"
+                title="Conditions de Retour"
                 content="Supports real-time collaborative editing, with high performance rendering."
             />
         </div>
