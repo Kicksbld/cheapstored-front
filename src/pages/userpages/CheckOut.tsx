@@ -11,6 +11,12 @@ interface Product {
   productName: string;
   productPrice: number;
   quantity: number;
+  productImages: Image[]
+}
+
+type Image = {
+  id: number;
+  src: string;
 }
 
 interface UserData {
@@ -72,11 +78,13 @@ const CheckOut = () => {
   }, []);
 
   const calculateSubtotal = () => {
-    return cart.reduce(
-      (total, product) => total + product.productPrice * product.quantity,
-      0
+    const subtotal = cart.reduce(
+        (total, product) => total + product.productPrice * product.quantity,
+        0
     );
+    return parseFloat(subtotal.toFixed(2)); // Arrondi à 2 décimales
   };
+
 
   const deliveryCost = 0;
 
@@ -301,7 +309,7 @@ const CheckOut = () => {
                       <div className="flex gap-[20px]">
                         <div className="w-max h-max">
                           <Image
-                            src="/img/png/airpod.png"
+                            src={product.productImages[0].src}
                             alt=""
                             width={54}
                             height={50}

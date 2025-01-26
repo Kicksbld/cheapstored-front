@@ -3,66 +3,74 @@
 @tailwind utilities;
 
 @layer base {
-  @font-face {
-    font-family: "Cooper";
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src: url("/fonts/CooperBT-Light.woff2") format("woff2"),
-      url("/font/CooperBT-Light.woff") format("woff"),
-      url("/font/CooperBT-Light.ttf") format("truetype");
-  }
+    @font-face {
+        font-family: "Cooper";
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("/fonts/CooperBT-Light.woff2") format("woff2"),
+        url("/font/CooperBT-Light.woff") format("woff"),
+        url("/font/CooperBT-Light.ttf") format("truetype");
+    }
 }
 
 .container {
-  max-width: calc(100% - clamp(30px, 3.125vw, 60px));
-  margin: 0 auto;
+    max-width: calc(100% - clamp(30px, 3.125vw, 60px));
+    margin: 0 auto;
 }
 
 .page-container {
-  max-width: calc(100% - 6.25vw);
-  margin: 0 auto;
-  padding-top: 50px;
+    max-width: calc(100% - 6.25vw);
+    margin: 0 auto;
+    padding-top: 50px;
 }
 
 .product-img {
-  width: clamp(200px, 47.396vw, 700px);
-  aspect-ratio: 1/1;
+    width: clamp(200px, 47.396vw, 700px);
+    aspect-ratio: 1/1;
 }
 
+@media (max-width: 768px) {
+    .product-img {
+        width: 100%;
+        aspect-ratio: 1/1;
+    }
+}
+
+
 .header-text-stroke {
-  -webkit-text-stroke: 2px rgba(96, 109, 1, 0.2);
+    -webkit-text-stroke: 2px rgba(96, 109, 1, 0.2);
 }
 
 .boxEffect {
-  box-shadow: 0px 0px 0px 1px #af7302, 0px 0px 0px 4px rgba(175, 115, 2, 0.2);
+    box-shadow: 0px 0px 0px 1px #af7302, 0px 0px 0px 4px rgba(175, 115, 2, 0.2);
 }
 
 .boxEffectNotSelected {
-  box-shadow: 0px 0px 0px 1px rgba(9, 9, 11, 0.08),
+    box-shadow: 0px 0px 0px 1px rgba(9, 9, 11, 0.08),
     0px 1px 2px -1px rgba(9, 9, 11, 0.08), 0px 2px 4px 0px rgba(9, 9, 11, 0.04);
 }
 
 .dashed {
-  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='black' stroke-width='4' stroke-dasharray='4%2c 17' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
-  height: 2px;
-  width: 100%;
+    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='black' stroke-width='4' stroke-dasharray='4%2c 17' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+    height: 2px;
+    width: 100%;
 }
 
 input[type="checkbox"] {
-  color: #af7302;
+    color: #af7302;
 }
 
 .bg-login {
-  background: url("/img/png/bg-login.avif") no-repeat;
-  background-size: cover;
+    background: url("/img/png/bg-login.avif") no-repeat;
+    background-size: cover;
 }
 
 .bg-signin {
-  background: url("/img/png/bg-signin.avif") no-repeat;
-  background-size: cover;
+    background: url("/img/png/bg-signin.avif") no-repeat;
+    background-size: cover;
 }
 
 .imgHeader {
-  max-width: clamp(200px, 30.833vw, 592px);
+    max-width: clamp(200px, 30.833vw, 592px);
 }

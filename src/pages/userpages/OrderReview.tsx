@@ -19,6 +19,12 @@ interface Product {
   productName: string;
   productPrice: number;
   quantity: number;
+  productImages: Image[];
+}
+
+type Image = {
+  id: number;
+  src: string;
 }
 
 const OrderReview = () => {
@@ -128,7 +134,7 @@ const OrderReview = () => {
                     <div className="flex gap-[20px]">
                       <div className="w-max h-max">
                         <Image
-                          src="/img/png/airpod.png"
+                          src={product.productImages[0].src}
                           alt=""
                           width={54}
                           height={50}

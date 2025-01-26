@@ -13,6 +13,7 @@ const HeaderProduct = () => {
     price: number;
     headerItem?: boolean; // Ajout de cette clé optionnelle
     images: Image[];
+    shortDesc?: string;
   };
 
   type Image = {
@@ -71,6 +72,7 @@ const HeaderProduct = () => {
       productName={headerProduct.name || ""}
       productPrice={headerProduct.price || 0}
       productQuantity={headerProduct.quantity || 0}
+      productShortDescription={headerProduct.shortDesc || ""}
       productImages={
         headerProduct.images && headerProduct.images.length > 0
           ? headerProduct.images
