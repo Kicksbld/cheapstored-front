@@ -105,7 +105,7 @@ const ProductPage = () => {
                         Les caractéristiques : {product.name}
                     </Typographie>
                     <div className="space-y-[15px]">
-                        <Accordion description={product.longDesc} />
+                        <Accordion description={product.longDesc || ""} />
 
 
                     </div>
