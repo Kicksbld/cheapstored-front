@@ -48,9 +48,14 @@ export default {
           "0%": { transform: "translateX(0)" },
           "100%": { transform: "translateX(-50%)" }, // Déplace la moitié du contenu total
         },
+        popup: {
+          "0%": { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(0)" },
+        },
       },
       animation: {
         slider: "slider 15s linear infinite",
+        popup: "popup 500ms linear",
       },
       colors: {
         white: "#fff",

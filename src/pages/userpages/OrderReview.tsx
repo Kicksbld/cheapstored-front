@@ -25,7 +25,7 @@ interface Product {
 type Image = {
   id: number;
   src: string;
-}
+};
 
 const OrderReview = () => {
   const [cart, setCart] = useState<Product[]>([]);
@@ -126,7 +126,7 @@ const OrderReview = () => {
           <div className="space-y-[20px] w-full">
             {cart.length > 0 ? (
               cart.map((product, index) => (
-                <>
+                <div key={index}>
                   <div
                     key={index}
                     className="flex items-center justify-between flex-wrap gap-4"
@@ -165,7 +165,7 @@ const OrderReview = () => {
                     </div>
                   </div>
                   <hr className="border border-cloud w-full" />
-                </>
+                </div>
               ))
             ) : (
               <Typographie variant="body-sm" theme="grey" font="ambit">
@@ -288,12 +288,11 @@ const OrderReview = () => {
           <Typographie font="ambit" theme="grey" weight="semibold">
             Besoin d’aide ?
           </Typographie>
-          <Typographie font="ambit" theme="grey">
-            Support Client
-          </Typographie>
-          <Typographie font="ambit" theme="grey">
-            Retours et échanges
-          </Typographie>
+          <div className="cursor-pointer" onClick={() => router.push("/userpages/ClientSupport")}>
+            <Typographie font="ambit" theme="grey">
+              Support Client
+            </Typographie>
+          </div>
         </div>
       </div>
     </div>

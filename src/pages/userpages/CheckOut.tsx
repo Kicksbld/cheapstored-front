@@ -11,13 +11,13 @@ interface Product {
   productName: string;
   productPrice: number;
   quantity: number;
-  productImages: Image[]
+  productImages: Image[];
 }
 
 type Image = {
   id: number;
   src: string;
-}
+};
 
 interface UserData {
   lastName: string;
@@ -27,6 +27,17 @@ interface UserData {
   city: string;
   email: string;
   phoneNumber: string;
+}
+
+interface UserConnectedData {
+  adress: string;
+  city: string;
+  createdAt: string;
+  email: string;
+  id: number;
+  name: string;
+  password: string;
+  postal: string;
 }
 
 const CheckOut = () => {
@@ -47,6 +58,19 @@ const CheckOut = () => {
     phoneNumber: "",
   });
 
+  const [userConnectedData, setUserConnectedData] = useState<UserConnectedData>(
+    {
+      adress: "",
+      city: "",
+      createdAt: "",
+      email: "",
+      id: 0,
+      name: "",
+      password: "",
+      postal: "",
+    }
+  );
+
   useEffect(() => {
     if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
       const cartStorage = localStorage.getItem("cart");
@@ -66,6 +90,23 @@ const CheckOut = () => {
           );
         }
       }
+      const storedUserConnectedData = localStorage.getItem("userConnectedData");
+      if (storedUserConnectedData) {
+        try {
+          const parsedUserConnectedData = JSON.parse(storedUserConnectedData);
+
+          if (
+            Array.isArray(parsedUserConnectedData) &&
+            parsedUserConnectedData.length > 0
+          ) {
+            setUserConnectedData(parsedUserConnectedData[0]);
+          } else if (typeof parsedUserConnectedData === "object") {
+            setUserConnectedData(parsedUserConnectedData);
+          }
+        } catch (error) {
+          console.error("Erreur lors du parsing des données:", error);
+        }
+      }
 
       const storedUserData = localStorage.getItem("userData");
       if (storedUserData) {
@@ -79,12 +120,11 @@ const CheckOut = () => {
 
   const calculateSubtotal = () => {
     const subtotal = cart.reduce(
-        (total, product) => total + product.productPrice * product.quantity,
-        0
+      (total, product) => total + product.productPrice * product.quantity,
+      0
     );
     return parseFloat(subtotal.toFixed(2)); // Arrondi à 2 décimales
   };
-
 
   const deliveryCost = 0;
 
@@ -94,9 +134,19 @@ const CheckOut = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    localStorage.setItem("userData", JSON.stringify([userData]));
 
-    console.log("Données utilisateur mises à jour:", userData);
+    
+    const mergedUserData = {
+      ...userData,
+      firstName: userConnectedData.name || userData.firstName,
+      address: userConnectedData.adress || userData.address,
+      postalCode: userConnectedData.postal || userData.postalCode,
+      city: userConnectedData.city || userData.city,
+      email: userConnectedData.email || userData.email,
+    };
+
+    localStorage.setItem("userData", JSON.stringify([mergedUserData]));
+    console.log("Données utilisateur mises à jour:", mergedUserData);
     router.push("/userpages/Payement");
   };
 
@@ -137,10 +187,20 @@ const CheckOut = () => {
                   <Input
                     required
                     placeholder="Enter votre Prénom"
-                    value={userData.firstName}
-                    onChange={(e) =>
-                      setUserData({ ...userData, firstName: e.target.value })
+                    value={
+                      userConnectedData.name
+                        ? userConnectedData.name
+                        : userData.firstName
                     }
+                    onChange={(e) => {
+                      if (userConnectedData.name) {
+                        setUserConnectedData({
+                          ...userConnectedData,
+                          name: e.target.value,
+                        });
+                      }
+                      setUserData({ ...userData, firstName: e.target.value });
+                    }}
                   />
                 </div>
               </div>
@@ -153,34 +213,57 @@ const CheckOut = () => {
                   <Input
                     required
                     placeholder="Adresse"
-                    value={userData.address}
-                    onChange={(e) =>
-                      setUserData({ ...userData, address: e.target.value })
+                    value={
+                      userConnectedData.adress
+                        ? userConnectedData.adress
+                        : userData.address
                     }
+                    onChange={(e) => {
+                      if (userConnectedData.adress) {
+                        setUserConnectedData({
+                          ...userConnectedData,
+                          adress: e.target.value,
+                        });
+                      }
+                      setUserData({ ...userData, address: e.target.value });
+                    }}
                   />
                   <Input
                     required
                     placeholder="Code Postale"
-                    value={userData.postalCode}
-                    onChange={(e) =>
-                      setUserData({ ...userData, postalCode: e.target.value })
+                    value={
+                      userConnectedData.postal
+                        ? userConnectedData.postal
+                        : userData.postalCode
                     }
+                    onChange={(e) => {
+                      if (userConnectedData.postal) {
+                        setUserConnectedData({
+                          ...userConnectedData,
+                          postal: e.target.value,
+                        });
+                      }
+                      setUserData({ ...userData, postalCode: e.target.value });
+                    }}
                   />
                   <Input
                     required
                     placeholder="Ville"
-                    value={userData.city}
-                    onChange={(e) =>
-                      setUserData({ ...userData, city: e.target.value })
+                    value={
+                      userConnectedData.city
+                        ? userConnectedData.city
+                        : userData.city
                     }
+                    onChange={(e) => {
+                      if (userConnectedData.city) {
+                        setUserConnectedData({
+                          ...userConnectedData,
+                          city: e.target.value,
+                        });
+                      }
+                      setUserData({ ...userData, city: e.target.value });
+                    }}
                   />
-                </div>
-                <div className="flex gap-[10px] items-center">
-                  <input type="checkbox" className="accent-secondary" />
-                  <Typographie font="ambit" variant="body-sm" theme="secondary">
-                    Adresse de facturation identique à l&apos;adresse de
-                    livraison ?
-                  </Typographie>
                 </div>
               </div>
               <hr className="w-full border border-cloud" />
@@ -193,10 +276,20 @@ const CheckOut = () => {
                     required
                     variant="email"
                     placeholder="exemple@email.com"
-                    value={userData.email}
-                    onChange={(e) =>
-                      setUserData({ ...userData, email: e.target.value })
+                    value={
+                      userConnectedData.email
+                        ? userConnectedData.email
+                        : userData.email
                     }
+                    onChange={(e) => {
+                      if (userConnectedData.email) {
+                        setUserConnectedData({
+                          ...userConnectedData,
+                          email: e.target.value,
+                        });
+                      }
+                      setUserData({ ...userData, email: e.target.value });
+                    }}
                   />
                 </div>
                 <div className="space-y-[8px] w-full">
@@ -258,21 +351,7 @@ const CheckOut = () => {
             Récapitulatif
           </Typographie>
           <div className="space-y-[15px]">
-            <div className="border border-cloud rounded-[10px] p-[20px] bg-light space-y-[15px]">
-              <div className="flex justify-between items-center ">
-                <Typographie font="ambit" variant="body-sm">
-                  Code activé
-                </Typographie>
-                <div className="w-max rounded-[5px] border border-[#A8F3D0] bg-[#D1FAE5] px-[7px] py-[2px]">
-                  <Typographie theme="green" font="ambit" variant="body-sm">
-                    NOEL20
-                  </Typographie>
-                </div>
-              </div>
-              <Button size="large" className="w-full" variant="outline">
-                Ajouter un nouveaux code
-              </Button>
-            </div>
+           
             <div className="p-[20px] border border-cloud bg-light rounded-[10px]">
               <div className="space-y-[20px] w-full">
                 <div className="flex justify-between items-center ">

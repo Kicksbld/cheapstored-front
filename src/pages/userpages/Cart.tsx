@@ -141,21 +141,7 @@ const Cart = () => {
               Récapitulatif
             </Typographie>
             <div className="space-y-[15px]">
-              <div className="border border-cloud rounded-[10px] p-[20px] bg-light space-y-[15px]">
-                <div className="flex justify-between items-center ">
-                  <Typographie font="ambit" variant="body-sm">
-                    Code activé
-                  </Typographie>
-                  <div className="w-max rounded-[5px] border border-[#A8F3D0] bg-[#D1FAE5] px-[7px] py-[2px]">
-                    <Typographie theme="green" font="ambit" variant="body-sm">
-                      NOEL20
-                    </Typographie>
-                  </div>
-                </div>
-                <Button size="large" className="w-full" variant="outline">
-                  modifier code de promotion
-                </Button>
-              </div>
+              
               <div className="p-[20px] border border-cloud bg-light rounded-[10px]">
                 <div className="space-y-[20px] w-full">
                   <div className="flex justify-between items-center ">
