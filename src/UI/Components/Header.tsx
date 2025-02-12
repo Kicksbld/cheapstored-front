@@ -70,7 +70,7 @@ const Header = ({
     <div className="bg-[#F3EFE6] w-full">
       <div className="container h-full relative">
         {isPopupOpen && (
-          <div className="absolute right-0 top-20 bg-light border-2 border-cloud rounded-[4px] py-[10px] px-[15px] flex items-center flex-col gap-[12px] animate-popup ">
+          <div className="absolute z-[500] right-0 top-20 bg-light border-2 border-cloud rounded-[4px] py-[10px] px-[15px] flex items-center flex-col gap-[12px] animate-popup ">
             <div className="flex items-center gap-2">
             <Typographie variant="h3" font="ambit" theme="modify">
               * {quantity}
