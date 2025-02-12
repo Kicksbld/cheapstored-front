@@ -6,7 +6,7 @@ import Image from "next/image";
 import { AiOutlinePlus } from "react-icons/ai";
 import { HiMinus } from "react-icons/hi";
 import { RiArrowRightSFill } from "react-icons/ri";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 
 interface Product {
@@ -26,11 +26,14 @@ const Header = ({
   productName,
   productPrice,
   productQuantity,
-  productImages, productShortDescription,
+  productImages,
+  productShortDescription,
 }: Product) => {
   const [quantity, setQuantity] = useState(1);
-  const [selectedImageId, setSelectedImageId] = useState(productImages[0]?.id); // Initialise avec la première image
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [selectedImageId, setSelectedImageId] = useState(productImages[0]?.id); 
   const pathname = usePathname();
+  const router = useRouter();
 
   const handleAddToCart = () => {
     let cartStorage = [];
@@ -39,7 +42,13 @@ const Header = ({
       if (existingCart) {
         cartStorage = JSON.parse(existingCart);
       }
-      cartStorage.push({ productName, productPrice, quantity, productQuantity, productImages });
+      cartStorage.push({
+        productName,
+        productPrice,
+        quantity,
+        productQuantity,
+        productImages,
+      });
       localStorage.setItem("cart", JSON.stringify(cartStorage));
     } else {
       console.log("localStorage is not available");
@@ -47,18 +56,40 @@ const Header = ({
   };
 
   const handleImageClick = (id: number) => {
-    setSelectedImageId(id); // Met à jour l'image sélectionnée
+    setSelectedImageId(id); 
+  };
+
+  const handlePopupOpen = () => {
+    setIsPopupOpen(true);
+    setTimeout(() => {
+      setIsPopupOpen(false);
+    }, 3000);
   };
 
   return (
     <div className="bg-[#F3EFE6] w-full">
       <div className="container h-full relative">
+        {isPopupOpen && (
+          <div className="absolute right-0 top-20 bg-light border-2 border-cloud rounded-[4px] py-[10px] px-[15px] flex items-center flex-col gap-[12px] animate-popup ">
+            <div className="flex items-center gap-2">
+            <Typographie variant="h3" font="ambit" theme="modify">
+              * {quantity}
+            </Typographie>
+            <Typographie variant="h3" font="cooper">
+              Article Ajouté au Panier
+            </Typographie>
+          </div>
+            <Button onClick={() => router.push("/userpages/Cart")} variant="filled" size="small" className="w-max">Consulter</Button>
+          </div>
+        )}
         <div className="absolute right-1/2  z-[200] top-[130px] md:right-0 md:top-1/2 flex md:flex-col flex-row cursor-pointer transform md:-translate-y-2/3 md:translate-x-0 translate-x-1/2  items-center gap-4">
           {productImages.map((item) => (
             <div
               key={item.id}
               className={`${
-                selectedImageId === item.id ? "boxEffect" : "boxEffectNotSelected"
+                selectedImageId === item.id
+                  ? "boxEffect"
+                  : "boxEffectNotSelected"
               } rounded-[4px] cursor-pointer md:w-[128px] md:h-[88px] w-[90px] h-[55px]  relative`}
               onClick={() => handleImageClick(item.id)} // Gérer le clic
             >
@@ -90,7 +121,7 @@ const Header = ({
                 variant="display"
                 font="tungsten"
                 theme="light"
-                className="header-text-stroke uppercase w-max" 
+                className="header-text-stroke uppercase w-max"
               >
                 {productName}
               </Typographie>
@@ -98,7 +129,10 @@ const Header = ({
             <div className="relative z-10 imgHeader">
               <Image
                 key={selectedImageId} // Met à jour l'image principale
-                src={productImages.find((img) => img.id === selectedImageId)?.src || ""}
+                src={
+                  productImages.find((img) => img.id === selectedImageId)
+                    ?.src || ""
+                }
                 alt=""
                 width={592}
                 height={555}
@@ -149,7 +183,9 @@ const Header = ({
                   <HiMinus
                     className="text-black/70 cursor-pointer"
                     size={20}
-                    onClick={() => (quantity > 1 ? setQuantity(quantity - 1) : null)}
+                    onClick={() =>
+                      quantity > 1 ? setQuantity(quantity - 1) : null
+                    }
                   />
                   <Typographie
                     className="w-[20px] text-center"
@@ -160,7 +196,11 @@ const Header = ({
                     {quantity}
                   </Typographie>
                   <AiOutlinePlus
-                    onClick={() => (quantity < productQuantity ? setQuantity(quantity + 1) : null) }
+                    onClick={() =>
+                      quantity < productQuantity
+                        ? setQuantity(quantity + 1)
+                        : null
+                    }
                     className="text-black/70 cursor-pointer"
                     size={20}
                   />
@@ -171,6 +211,7 @@ const Header = ({
                   onClick={() => {
                     if (productQuantity > 0) {
                       handleAddToCart();
+                      handlePopupOpen();
                     }
                   }}
                   disabled={productQuantity < 1}

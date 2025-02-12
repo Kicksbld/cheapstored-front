@@ -15,11 +15,11 @@ const HomeSwiper = () => {
         </Typographie>
         <Image alt="" src="img/svg/starHome.svg" width={15} height={15} />
         <Typographie className="uppercase" theme="light" variant="h2">
-          fonctionnement
+          Paiement sécurisé en ligne
         </Typographie>
         <Image alt="" src="img/svg/starHome.svg" width={15} height={15} />
         <Typographie className="uppercase" theme="light" variant="h2">
-          fonctionnement
+          Paiement sécurisé en ligne
         </Typographie>
         <Image alt="" src="img/svg/starHome.svg" width={15} height={15} />
         <Typographie className="uppercase" theme="light" variant="h2">
@@ -31,11 +31,11 @@ const HomeSwiper = () => {
         </Typographie>
         <Image alt="" src="img/svg/starHome.svg" width={15} height={15} />
         <Typographie className="uppercase" theme="light" variant="h2">
-          fonctionnement
+          Paiement sécurisé en ligne
         </Typographie>
         <Image alt="" src="img/svg/starHome.svg" width={15} height={15} />
         <Typographie className="uppercase" theme="light" variant="h2">
-          fonctionnement
+          Paiement sécurisé en ligne
         </Typographie>
       </div>
       
