@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { Button } from "@/UI/Design-System/Button";
 import { useRouter } from "next/router";
 import Link from "next/link";
-
+import Cookies from "js-cookie";
 interface UserData {
   adress: string;
   city: string;
@@ -54,10 +54,8 @@ const Profile = () => {
   }, []);
 
   const disconnectUser = () => {
-    if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
-      localStorage.removeItem("authToken");
-      router.push("/");
-    }
+    Cookies.remove("authToken");
+    router.push("/");
   };
 
   return (

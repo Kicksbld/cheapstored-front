@@ -4,6 +4,8 @@ import { Button } from "@/UI/Design-System/Button";
 import { Typographie } from "@/UI/Design-System/Typographie";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { GoDatabase } from "react-icons/go";
+import Cookies from "js-cookie";
 
 interface Product {
   productName: string;
@@ -18,7 +20,6 @@ type ImageType = {
   src: string; // URL de l'image
 };
 
-
 const Cart = () => {
   const router = useRouter();
 
@@ -27,6 +28,14 @@ const Cart = () => {
   };
 
   const [cart, setCart] = useState<Product[]>([]);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const token = Cookies.get("authToken");
+    if (token) {
+      setIsAuthenticated(true);
+    }
+  }, []);
 
   useEffect(() => {
     if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
@@ -63,11 +72,9 @@ const Cart = () => {
     const updatedCart = cart.map((product, i) => {
       if (i === index) {
         const newQuantity = Math.min(
-            Math.max(product.quantity + delta, 1), // Minimum 1
-            product.productQuantity,
+          Math.max(product.quantity + delta, 1), // Minimum 1
+          product.productQuantity
         );
-
-
 
         return {
           ...product,
@@ -84,17 +91,14 @@ const Cart = () => {
     }
   };
 
-
-
   // Calculate the total price of the cart
   const getSubtotal = () => {
     const subtotal = cart.reduce(
-        (total, product) => total + product.productPrice * product.quantity,
-        0
+      (total, product) => total + product.productPrice * product.quantity,
+      0
     );
     return parseFloat(subtotal.toFixed(2)); // Arrondi à 2 décimales
   };
-
 
   const deliveryCost = 0; // Static delivery cost
   const taxes = 5.49; // Fixed taxes
@@ -109,9 +113,33 @@ const Cart = () => {
       <NavBar />
       <div className="mt-12 md:mt-[100px] flex flex-col lg:flex-row justify-between gap-[100px] page-container">
         <div className="space-y-[35px] flex-[2]">
-          <Typographie font="cooper" variant="h2">
-            Détail de votre Panier
-          </Typographie>
+          <div className="w-full space-y-[15px]">
+            <Typographie font="cooper" variant="h2">
+              Détail de votre Panier
+            </Typographie>
+            {!isAuthenticated ? (
+              <div className="flex items-center gap-[10px] justify-center w-full bg-light border border-cloud rounded-[10px] p-[8px]">
+                <GoDatabase size={20} className="text-grey" />
+                <Typographie font="ambit" variant="body-sm">
+                  Connecte toi pour une meilleur expérience
+                </Typographie>
+
+                <div onClick={() => router.push("/userpages/LogIn")}>
+                  <Typographie
+                    font="ambit"
+                    className="underline cursor-pointer"
+                    weight="semibold"
+                    variant="body-sm"
+                  >
+                    Me connecter
+                  </Typographie>
+                </div>
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
+
           <div className="space-y-[15px]">
             {cart.length > 0 ? (
               cart.map((product, index) => (
@@ -141,7 +169,6 @@ const Cart = () => {
               Récapitulatif
             </Typographie>
             <div className="space-y-[15px]">
-              
               <div className="p-[20px] border border-cloud bg-light rounded-[10px]">
                 <div className="space-y-[20px] w-full">
                   <div className="flex justify-between items-center ">
@@ -196,8 +223,8 @@ const Cart = () => {
               Récapitulatif
             </Typographie>
             <Typographie variant="body-sm" theme="grey" font="ambit">
-                Aucun Résumé de commande.
-              </Typographie>
+              Aucun Résumé de commande.
+            </Typographie>
           </div>
         )}
       </div>

@@ -6,6 +6,7 @@ import Link from "next/link";
 import bcrypt from "bcryptjs"; // Import bcryptjs
 import { useRouter } from "next/router";
 import { SignJWT } from "jose"; // Import de jose
+import Cookies from 'js-cookie';
 
 const JWT_SECRET = process.env.NEXT_PUBLIC_JWT_SECRET as string;
 
@@ -60,7 +61,11 @@ const LogIn = () => {
           .sign(new TextEncoder().encode(JWT_SECRET));
 
         // Stockage du token dans le localStorage (ou un cookie)
-        localStorage.setItem("authToken", token);
+        Cookies.set('authToken', token, {
+          secure: process.env.NODE_ENV === 'production',
+          expires: 1/24, // 1 hour
+          path: '/'
+        });
         localStorage.setItem("userConnectedData", JSON.stringify(user));
         console.log("Connexion réussie !");
         router.push("/");

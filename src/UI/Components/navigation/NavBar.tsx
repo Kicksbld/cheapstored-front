@@ -2,13 +2,14 @@ import { Typographie } from "@/UI/Design-System/Typographie";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import Cookies from "js-cookie";
 
 const NavBar = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // Vérifie si l'utilisateur est connecté au montage du composant
+  // Vérifie si l'utilisateur est connecté au montage du composant grace au token dans les cookies
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
+    const token = Cookies.get("authToken");
     if (token) {
       setIsAuthenticated(true);
     }
