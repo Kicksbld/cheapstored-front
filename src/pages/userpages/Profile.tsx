@@ -6,6 +6,7 @@ import { Button } from "@/UI/Design-System/Button";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Cookies from "js-cookie";
+import ModifyProfileInfo from "@/UI/Components/ModifyProfileInfo";
 interface UserData {
   adress: string;
   city: string;
@@ -29,7 +30,8 @@ const Profile = () => {
     password: "",
     postal: 0,
   });
-
+  const [modifyProfileInfo, setModifyProfileInfo] = useState(false);
+  const [infoToModify, setInfoToModify] = useState<string>("");
   const router = useRouter();
 
   useEffect(() => {
@@ -58,7 +60,14 @@ const Profile = () => {
     router.push("/");
   };
 
+  const handleModifyProfileInfo = (info: string) => () => {
+    setInfoToModify(info);
+    setModifyProfileInfo(true);
+  };
+
   return (
+    <>
+    {modifyProfileInfo && <ModifyProfileInfo infoToModify={infoToModify} setModifyProfileInfo={setModifyProfileInfo} />}
     <div className="container pb-4">
       <NavBar />
       <div className="max-w-[1338px] space-y-[70px] px-4 mx-auto pt-[134px] pb-[100px]">
@@ -133,7 +142,7 @@ const Profile = () => {
                           {userData.name}
                         </Typographie>
                       </div>
-                      <Button variant="modify">Modifier</Button>
+                      <Button variant="modify" onClick={handleModifyProfileInfo("Nom")}>Modifier</Button>
                     </div>
                     <div className="w-full h-[1px] bg-cloud"></div>
                     <div className="flex items-center justify-between cursor-pointer w-full">
@@ -145,7 +154,7 @@ const Profile = () => {
                           {userData.email}
                         </Typographie>
                       </div>
-                      <Button variant="modify">Modifier</Button>
+                      <Button variant="modify" onClick={handleModifyProfileInfo("Email")}>Modifier</Button>
                     </div>
                     <div className="w-full h-[1px] bg-cloud"></div>
                     <div className="flex items-center justify-between cursor-pointer w-full">
@@ -157,7 +166,7 @@ const Profile = () => {
                           {userData.password.slice(0, 10)}...
                         </Typographie>
                       </div>
-                      <Button variant="modify">Modifier</Button>
+                      <Button variant="modify" onClick={handleModifyProfileInfo("Mot de passe")}>Modifier</Button>
                     </div>
                     <div className="w-full h-[1px] bg-cloud"></div>
                     <div className="flex items-center justify-between cursor-pointer w-full">
@@ -169,7 +178,7 @@ const Profile = () => {
                           {userData.adress}
                         </Typographie>
                       </div>
-                      <Button variant="modify">Modifier</Button>
+                      <Button variant="modify" onClick={handleModifyProfileInfo("Adresse de Facturation")}>Modifier</Button>
                     </div>
                     <div className="w-full h-[1px] bg-cloud"></div>
                   </div>
@@ -233,7 +242,7 @@ const Profile = () => {
         <div className="w-full h-[1px] bg-cloud"></div>
         <div className="space-y-[30px] w-full">
           <Typographie variant="h2">Des Questions ?</Typographie>
-          <div className="flex items-end justify-between">
+          <div className="flex items-end flex-wrap gap-[10px] justify-between">
             <Typographie
               variant="h3"
               theme="secondary"
@@ -261,6 +270,7 @@ const Profile = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
