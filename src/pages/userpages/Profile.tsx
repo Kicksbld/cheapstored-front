@@ -67,7 +67,7 @@ const Profile = () => {
 
   return (
     <>
-    {modifyProfileInfo && <ModifyProfileInfo infoToModify={infoToModify} setModifyProfileInfo={setModifyProfileInfo} />}
+    {modifyProfileInfo && <ModifyProfileInfo id={userData.id} infoToModify={infoToModify} setModifyProfileInfo={setModifyProfileInfo} />}
     <div className="container pb-4">
       <NavBar />
       <div className="max-w-[1338px] space-y-[70px] px-4 mx-auto pt-[134px] pb-[100px]">

@@ -28,8 +28,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       console.error(error);
       return res.status(500).json({ error: 'Internal server error' });
     }
-  } else {
-    // Si ce n'est pas une requête POST, renvoyer une erreur 405
-    return res.status(405).json({ error: 'Method Not Allowed' });
+  } else if (req.method === "PUT") {
+    try {
+      const response = await fetch(EXTERNAL_API_URL, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(req.body),
+      });
+      
+      const data = await response.json();
+      return res.status(200).json(data);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
   }
+  
+  return res.status(405).json({ error: 'Method Not Allowed' });
 }
