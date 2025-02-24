@@ -78,7 +78,7 @@ const OrderReview = () => {
 
   const deliveryCost = 0;
 
-  const taxes = 5.49;
+  const taxes = 5;
 
   const totalTTC = calculateSubtotal() + deliveryCost + taxes;
 

@@ -6,7 +6,7 @@ import { Button } from "../Design-System/Button";
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 );
-const SESSION_URL = "/api/checkout/route";
+const SESSION_URL = "/api/checkout";
 
 interface CheckoutFormProps {
   name: string;
@@ -78,7 +78,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({
   );
 };
 
-const Checkout: React.FC<{
+const CheckoutButton: React.FC<{
   name: string;
   amount: number;
   id: number;
@@ -89,4 +89,4 @@ const Checkout: React.FC<{
   </Elements>
 );
 
-export default Checkout;
+export default CheckoutButton;

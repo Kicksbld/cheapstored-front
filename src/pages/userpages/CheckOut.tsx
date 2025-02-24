@@ -1,5 +1,5 @@
 import NavBar from "@/UI/Components/navigation/NavBar";
-import Checkout from "@/UI/Components/StripeButton";
+import CheckoutButton from "@/UI/Components/StripeButton";
 import { Button } from "@/UI/Design-System/Button";
 import { Input } from "@/UI/Design-System/Input";
 import { Typographie } from "@/UI/Design-System/Typographie";
@@ -130,7 +130,7 @@ const CheckOut = () => {
 
   const deliveryCost = 0;
 
-  const taxes = 5.49;
+  const taxes = 5;
 
   const totalTTC = calculateSubtotal() + deliveryCost + taxes;
 
@@ -151,8 +151,6 @@ const CheckOut = () => {
     setIsPayement(true);
     router.push("#payement");
   };
-
-  const totalStripe = totalTTC.toFixed(2);
 
   return (
     <div className="container pb-4">
@@ -335,9 +333,9 @@ const CheckOut = () => {
                 <Image alt="" src="/img/svg/cards.svg" width={35} height={35} />
               </div>
               {isPayement ? (
-                <Checkout
+                <CheckoutButton
                   name={userData.lastName + " " + userData.firstName}
-                  amount={Number(totalStripe)}
+                  amount={Number(totalTTC)}
                   id={1}
                   idCustomer={userConnectedData.id}
                 />

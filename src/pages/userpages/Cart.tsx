@@ -105,7 +105,7 @@ const Cart = () => {
   };
 
   const deliveryCost = 0; // Static delivery cost
-  const taxes = 5.49; // Fixed taxes
+  const taxes = 5; // Fixed taxes
 
   // Calculate total TTC (Including subtotal, delivery cost, and taxes)
   const getTotalTTC = () => {
