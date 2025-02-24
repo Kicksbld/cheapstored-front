@@ -16,6 +16,10 @@ export default function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL("/userpages/LogIn", req.url));
   }
 
+  if (!token && req.nextUrl.pathname.startsWith("/userpages/CheckOut")) {
+    return NextResponse.redirect(new URL("/userpages/LogIn", req.url));
+  }
+
   return NextResponse.next();
 }
 

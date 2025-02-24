@@ -24,7 +24,11 @@ const Cart = () => {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push("/userpages/CheckOut");
+    if (isAuthenticated) {
+      router.push("/userpages/CheckOut");
+    } else {
+      router.push("/userpages/LogIn");
+    }
   };
 
   const [cart, setCart] = useState<Product[]>([]);
@@ -206,6 +210,7 @@ const Cart = () => {
                   </div>
                   <hr className="border border-cloud w-full" />
                   <Button
+
                     onClick={handleClick}
                     size="large"
                     className="w-full"

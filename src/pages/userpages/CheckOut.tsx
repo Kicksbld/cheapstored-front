@@ -1,11 +1,11 @@
 import NavBar from "@/UI/Components/navigation/NavBar";
+import Checkout from "@/UI/Components/StripeButton";
 import { Button } from "@/UI/Design-System/Button";
 import { Input } from "@/UI/Design-System/Input";
 import { Typographie } from "@/UI/Design-System/Typographie";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { FaChevronRight } from "react-icons/fa6";
 
 interface Product {
   productName: string;
@@ -71,6 +71,8 @@ const CheckOut = () => {
     }
   );
 
+  const [isPayement, setIsPayement] = useState(false);
+
   useEffect(() => {
     if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
       const cartStorage = localStorage.getItem("cart");
@@ -135,7 +137,6 @@ const CheckOut = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    
     const mergedUserData = {
       ...userData,
       firstName: userConnectedData.name || userData.firstName,
@@ -147,8 +148,11 @@ const CheckOut = () => {
 
     localStorage.setItem("userData", JSON.stringify([mergedUserData]));
     console.log("Données utilisateur mises à jour:", mergedUserData);
-    router.push("/userpages/Payement");
+    setIsPayement(true);
+    router.push("#payement");
   };
+
+  const totalStripe = totalTTC.toFixed(2);
 
   return (
     <div className="container pb-4">
@@ -307,13 +311,8 @@ const CheckOut = () => {
                   />
                 </div>
               </div>
-              <Button
-                type="submit"
-                className="md:w-[408px] flex justify-center"
-                variant="filled"
-                icon={{ icon: FaChevronRight }}
-              >
-                Continuer la Livraison
+              <Button type="submit" size="large" variant="filled">
+                Continuer la livraison
               </Button>
             </form>
           </div>
@@ -325,13 +324,26 @@ const CheckOut = () => {
             <div className="dashed"> </div>
           </div>
           <div className="space-y-[25px] w-full">
-            <div className=" flex flex-col items-center gap-4 w-full p-[30px] border border-cloud bg-light rounded-[10px] ">
+            <div
+              id="payement"
+              className=" flex flex-col items-center gap-4 w-full p-[30px] border border-cloud bg-light rounded-[10px] "
+            >
               <div className="flex items-center justify-between w-full">
                 <Typographie font="cooper" variant="h2">
                   Payement
                 </Typographie>
                 <Image alt="" src="/img/svg/cards.svg" width={35} height={35} />
               </div>
+              {isPayement ? (
+                <Checkout
+                  name={userData.lastName + " " + userData.firstName}
+                  amount={Number(totalStripe)}
+                  id={1}
+                  idCustomer={userConnectedData.id}
+                />
+              ) : (
+                ""
+              )}
             </div>
             <div className="flex items-center justify-between w-full p-[30px] border border-cloud bg-light rounded-[10px] ">
               <Typographie font="cooper" variant="h2">
@@ -351,7 +363,6 @@ const CheckOut = () => {
             Récapitulatif
           </Typographie>
           <div className="space-y-[15px]">
-           
             <div className="p-[20px] border border-cloud bg-light rounded-[10px]">
               <div className="space-y-[20px] w-full">
                 <div className="flex justify-between items-center ">
