@@ -41,6 +41,16 @@ const OrderReview = () => {
   const router = useRouter();
 
   useEffect(() => {
+    const checkoutInProgress = localStorage.getItem("checkout_in_progress");
+
+    if (checkoutInProgress) {
+      localStorage.removeItem("cart"); // Supprime le panier
+      localStorage.removeItem("checkout_in_progress"); // Nettoie le flag
+    }
+
+  }, []);
+
+  useEffect(() => {
     const cartStorage = localStorage.getItem("cart");
 
     if (cartStorage) {

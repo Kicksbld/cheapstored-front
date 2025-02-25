@@ -44,7 +44,7 @@ const CartProducts = ({index, name, price, quantity, onDelete, onQuantityChange,
             </div>
             <div className="flex items-center gap-[10px]">
                 <div
-                    className="w-fit rounded-full flex items-center gap-[15px] px-[15px] py-[5px] border-2 border-grey border-dashed">
+                    className="w-fit rounded-full flex items-center gap-[15px] px-[15px] py-[5px] border-2 border-grey border-dashed select-none">
                     <HiMinus
                         className="text-black/70 cursor-pointer"
                         size={20}

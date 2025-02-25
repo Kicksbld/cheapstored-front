@@ -179,7 +179,7 @@ const Header = ({
                 {productShortDescription}
               </Typographie>
               <div className="flex flex-wrap items-center gap-[15px] md:w-max">
-                <div className="w-fit rounded-full flex items-center gap-[15px] px-[15px] py-[5px] border-2 border-black border-dashed">
+                <div className="w-fit rounded-full flex items-center gap-[15px] px-[15px] py-[5px] border-2 border-black border-dashed select-none">
                   <HiMinus
                     className="text-black/70 cursor-pointer"
                     size={20}

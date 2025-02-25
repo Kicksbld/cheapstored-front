@@ -32,39 +32,35 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setLoading(true);
-    console.log("Sending data to API:", { name, amount, id, idCustomer });
-   
-
+    setError(null);
+  
     try {
+      localStorage.setItem("checkout_in_progress", "true"); // Marqueur temporaire
+  
       const res = await fetch(SESSION_URL, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, amount, id, idCustomer }),
       });
-
-      if (!res.ok) {
-        throw new Error("Failed to create checkout session");
-      }
-
+  
+      if (!res.ok) throw new Error("Failed to create checkout session");
+  
       const session = await res.json();
-
-      const result = await stripe!.redirectToCheckout({
-        sessionId: session.id,
-      });
-
+  
+      const result = await stripe!.redirectToCheckout({ sessionId: session.id });
+  
       if (result.error) {
         setError(result.error.message || "An unknown error occurred");
+        localStorage.removeItem("checkout_in_progress"); // Nettoie si erreur
       }
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        setError(error.message || "An unknown error occurred");
-      }
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "An unknown error occurred");
+      localStorage.removeItem("checkout_in_progress");
     } finally {
       setLoading(false);
     }
   };
+  
 
   return (
     <form onSubmit={handleSubmit}>

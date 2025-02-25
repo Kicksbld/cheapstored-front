@@ -336,7 +336,7 @@ const CheckOut = () => {
                 <CheckoutButton
                   name={userData.lastName + " " + userData.firstName}
                   amount={Number(totalTTC.toFixed(2))}
-                  id={1}
+                  id={1} 
                   idCustomer={userConnectedData.id}
                 />
               ) : (

@@ -229,7 +229,7 @@ const Profile = () => {
                         font="ambit"
                         weight="semibold"
                       >
-                        #3
+                        *1
                       </Typographie>
                       <Button variant="filled">Voir les détails</Button>
                     </div>
