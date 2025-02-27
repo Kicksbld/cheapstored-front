@@ -4,7 +4,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { page } = req.query;
   const response = await fetch(
-    `https://admin-dashboard-three-kappa-36.vercel.app/api/product/product?page=${page}`,
+    `https://admin-dashboard-three-kappa-36.vercel.app/api/order/order?page=${page}`,
     {
       method: req.method,
       headers: {

@@ -10,6 +10,7 @@ import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 
 interface Product {
+  productId: number
   productName: string;
   productPrice: number;
   productQuantity: number;
@@ -23,6 +24,7 @@ type ImageType = {
 };
 
 const Header = ({
+  productId,
   productName,
   productPrice,
   productQuantity,
@@ -43,6 +45,7 @@ const Header = ({
         cartStorage = JSON.parse(existingCart);
       }
       cartStorage.push({
+        productId,
         productName,
         productPrice,
         quantity,
@@ -53,6 +56,7 @@ const Header = ({
     } else {
       console.log("localStorage is not available");
     }
+    productQuantity = productQuantity - quantity;
   };
 
   const handleImageClick = (id: number) => {

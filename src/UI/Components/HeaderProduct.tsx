@@ -69,6 +69,7 @@ const HeaderProduct = () => {
   // Passe le produit au Header
   return (
     <Header
+      productId = {headerProduct.id}
       productName={headerProduct.name || ""}
       productPrice={headerProduct.price || 0}
       productQuantity={headerProduct.quantity || 0}

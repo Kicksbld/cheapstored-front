@@ -68,6 +68,7 @@ const ProductPage = () => {
     return (
         <>
             <Header
+                productId = {product.id}
                 productName={product.name}
                 productPrice={product.price}
                 productShortDescription={product.shortDesc || ""}

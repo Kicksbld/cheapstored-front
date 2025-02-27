@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
 interface Product {
+  productId: number;
   productName: string;
   productPrice: number;
   quantity: number;
@@ -17,6 +18,7 @@ interface Product {
 type Image = {
   id: number;
   src: string;
+  itemId: number;
 };
 
 interface UserData {
@@ -151,6 +153,8 @@ const CheckOut = () => {
     setIsPayement(true);
     router.push("#payement");
   };
+
+  console.log(cart)
 
   return (
     <div className="container pb-4">
@@ -334,11 +338,15 @@ const CheckOut = () => {
               </div>
               {isPayement ? (
                 <CheckoutButton
-                  name={userData.lastName + " " + userData.firstName}
-                  amount={Number(totalTTC.toFixed(2))}
-                  id={1} 
-                  idCustomer={userConnectedData.id}
-                />
+                name={userData.lastName + " " + userData.firstName}
+                idCustomer={userConnectedData.id}
+                items={cart.map(item => ({
+                  id: item.productId,
+                  itemId: item.productImages[0].itemId, 
+                  quantity: item.quantity,
+                  amount: item.productPrice,
+                }))}
+              />
               ) : (
                 ""
               )}
