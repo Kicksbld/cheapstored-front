@@ -154,7 +154,6 @@ const CheckOut = () => {
     router.push("#payement");
   };
 
-  console.log(cart)
 
   return (
     <div className="container pb-4">

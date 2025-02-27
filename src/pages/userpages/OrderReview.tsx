@@ -4,6 +4,7 @@ import Image from "next/image";
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Loader from "@/UI/Components/Loader";
 
 interface UserData {
   lastName: string;
@@ -27,8 +28,15 @@ type Image = {
   src: string;
 };
 
+interface Order {
+  id: number;
+  createdAt: string;
+  items: Product[];
+  total: number;
+  customer: UserData;
+}
+
 const OrderReview = () => {
-  const [cart, setCart] = useState<Product[]>([]);
   const [userData, setUserData] = useState<UserData>({
     lastName: "",
     firstName: "",
@@ -38,6 +46,10 @@ const OrderReview = () => {
     email: "",
     phoneNumber: "",
   });
+
+  const [error, setError] = useState<Error | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [clientOrder, setClientOrder] = useState<Order>(); // Store filtered orders here
   const router = useRouter();
 
   useEffect(() => {
@@ -47,27 +59,9 @@ const OrderReview = () => {
       localStorage.removeItem("cart"); // Supprime le panier
       localStorage.removeItem("checkout_in_progress"); // Nettoie le flag
     }
-
   }, []);
 
   useEffect(() => {
-    const cartStorage = localStorage.getItem("cart");
-
-    if (cartStorage) {
-      try {
-        const parsedCart = JSON.parse(cartStorage);
-        if (Array.isArray(parsedCart)) {
-          setCart(parsedCart);
-        } else {
-          console.error("Le panier dans localStorage est mal formaté.");
-        }
-      } catch (e) {
-        console.error(
-          "Erreur lors du parsing du panier depuis localStorage.",
-          e
-        );
-      }
-    }
     if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
       const storedUserData = localStorage.getItem("userData");
       if (storedUserData) {
@@ -79,18 +73,55 @@ const OrderReview = () => {
     }
   }, []);
 
-  const calculateSubtotal = () => {
-    return cart.reduce(
-      (total, product) => total + product.productPrice * product.quantity,
-      0
-    );
-  };
+  const ORDERS_URL = "/api/orders";
 
-  const deliveryCost = 0;
+  useEffect(() => {
+    const fetchOrders = async () => {
+      setIsLoading(true);
+      try {
+        const res = await fetch(ORDERS_URL);
+        if (!res.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data: Order[] = await res.json();
 
-  const taxes = 5;
+        // Filter orders directly after fetching
+        const lastOrder = data
+          .filter((item) => item.customer.email === userData.email)
+          .pop(); // Get the last order in the filtered array
 
-  const totalTTC = calculateSubtotal() + deliveryCost + taxes;
+        setClientOrder(lastOrder); // Set the last order
+      } catch (e) {
+        setError(e as Error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchOrders();
+  }, [userData.email]); // Add userData.email as a dependency
+
+  if (!clientOrder) {
+    return <div>Aucune commande trouvée.</div>; // Handle the case where no order is found
+  }
+
+  const createdAtDate = new Date(clientOrder.createdAt);
+  const formattedDate = `${createdAtDate
+    .getDate()
+    .toString()
+    .padStart(2, "0")}/${(createdAtDate.getMonth() + 1)
+    .toString()
+    .padStart(2, "0")}/${createdAtDate.getFullYear()}`;
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  console.log(clientOrder);
 
   return (
     <div className="container pb-4">
@@ -109,10 +140,10 @@ const OrderReview = () => {
               commande a l’addrese suivante: {userData.email}
             </Typographie>
             <Typographie variant="tag-title">
-              Date de la commande: Samedi 17 Nov 2024
+              Date de la commande: {formattedDate}
             </Typographie>
             <Typographie variant="tag-title" theme="modify">
-              Numero de commande: 3
+              Numero de commande: {clientOrder.id}
             </Typographie>
           </div>
 
@@ -134,7 +165,7 @@ const OrderReview = () => {
           </div>
           <hr className="w-full border border-cloud" />
           <div className="space-y-[20px] w-full">
-            {cart.length > 0 ? (
+            {/* {cart.length > 0 ? (
               cart.map((product, index) => (
                 <div key={index}>
                   <div
@@ -181,13 +212,13 @@ const OrderReview = () => {
               <Typographie variant="body-sm" theme="grey" font="ambit">
                 Aucun produit n&apos;a été trouvé.
               </Typographie>
-            )}
+            )} */}
             <div className="flex justify-between items-center ">
               <Typographie font="ambit" variant="body-sm">
                 Sous-total
               </Typographie>
               <Typographie font="ambit" variant="body-sm">
-                {calculateSubtotal()} €
+                {clientOrder.total - 5} €
               </Typographie>
             </div>
             <div className="flex justify-between items-center">
@@ -195,7 +226,7 @@ const OrderReview = () => {
                 Livraison
               </Typographie>
               <Typographie font="ambit" variant="body-sm">
-                {deliveryCost.toFixed(2)} €
+                0 €
               </Typographie>
             </div>
             <div className="flex justify-between items-center">
@@ -203,7 +234,7 @@ const OrderReview = () => {
                 Frais de sercice & Taxes
               </Typographie>
               <Typographie font="ambit" variant="body-sm">
-                {taxes.toFixed(2)} €
+                5 €
               </Typographie>
             </div>
             <hr className="border border-cloud w-full" />
@@ -212,7 +243,7 @@ const OrderReview = () => {
                 Total TTC
               </Typographie>
               <Typographie font="ambit" variant="body-sm">
-                {totalTTC.toFixed(2)} €
+                {clientOrder.total} €
               </Typographie>
             </div>
           </div>
@@ -288,7 +319,7 @@ const OrderReview = () => {
                 Detail du payement
               </Typographie>
               <Typographie font="ambit" theme="grey">
-                €{totalTTC.toFixed(2)} payé le 17/11/2024 a 12:16:27
+                € {clientOrder.total} payé le {formattedDate}
               </Typographie>
             </div>
           </div>
@@ -298,7 +329,10 @@ const OrderReview = () => {
           <Typographie font="ambit" theme="grey" weight="semibold">
             Besoin d’aide ?
           </Typographie>
-          <div className="cursor-pointer" onClick={() => router.push("/userpages/ClientSupport")}>
+          <div
+            className="cursor-pointer"
+            onClick={() => router.push("/userpages/ClientSupport")}
+          >
             <Typographie font="ambit" theme="grey">
               Support Client
             </Typographie>

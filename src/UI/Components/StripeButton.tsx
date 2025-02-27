@@ -76,7 +76,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({
       {loading ? (
         <Button type="submit" size="large" variant="filled" disabled={loading}>Chargement en cours</Button>
       ) : (
-        <Button type="submit" size="large" variant="filled">Payement Sécurisé </Button>
+        <Button type="submit" size="large" variant="filled">Payement Sécurisé</Button>
       )}
       {error && <p>{error}</p>}
     </form>
