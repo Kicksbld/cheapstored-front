@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2025-01-27.acacia"
+  apiVersion: "2025-01-27.acacia",
 });
 
 export default async function handler(
@@ -28,14 +28,17 @@ export default async function handler(
         name: customerName,
       });
 
+    
+      const taxPerItem = 5 / items.length; // Distribute the tax equally
+
       const lineItems = items.map(
-        (item: { id: number; quantity: number; amount: number }) => ({
+        (item: { id: number; quantity: number; amount: number }, index: number) => ({
           price_data: {
             currency: "eur",
             product_data: {
-              name: `${name}`,
+              name: `Produit ${index + 1}, (tax inclue: ${taxPerItem.toFixed(2)}€)`,
             },
-            unit_amount: ((item.amount + 5) * 100).toFixed(), // Montant en centimes
+            unit_amount: Math.round((item.amount + taxPerItem) * 100), // Include tax in the price
           },
           quantity: item.quantity,
         })

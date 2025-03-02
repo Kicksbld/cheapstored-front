@@ -145,7 +145,7 @@ const Profile = () => {
       )}
       <div className="container pb-4">
         <NavBar />
-        <div className="max-w-[1338px] space-y-[70px] px-4 mx-auto pt-[134px] pb-[100px]">
+        <div className="max-w-[1338px] space-y-[70px] px-4 mx-auto pt-12 md:pt-[134px] pb-[100px]">
           <div className=" flex flex-col md:flex-row justify-between gap-x-10 gap-y-20">
             <div className="space-y-[20px] flex-1 md:max-w-[177px]">
               <div

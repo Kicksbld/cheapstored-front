@@ -24,7 +24,7 @@ export default {
         },
       ],
       "2xl": [
-        "clamp(28px, 2.083vw, 40px)",
+        "clamp(24px, 2.083vw, 40px)",
         {
           lineHeight: "clamp(32px, 2.604vwvw, 50px)",
           fontWeight: "200",
