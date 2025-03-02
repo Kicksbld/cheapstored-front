@@ -21,11 +21,18 @@ interface UserData {
 }
 
 interface Product {
-  productId: number;
-  productName: string;
-  productPrice: number;
-  quantity: number;
-  productImages: Image[];
+  item: {
+    categoryId: number;
+    createdAt: string;
+    headerItem: boolean;
+    id: number;
+    longDesc: string;
+    name: string;
+    price: number;
+    quantity: number;
+    shortDesc: string;
+    productImages?: Image[]; // Optional if images might exist
+  };
 }
 
 type Image = {
@@ -194,8 +201,7 @@ const Profile = () => {
                       <Typographie variant="h2">Mon Profile</Typographie>
                       <Typographie theme="secondary" font="ambit">
                         Voir et mettez à jour les informations de votre profil,
-                        y compris votre nom, votre adresse e-mail et numéro de
-                        téléphone. Vous pouvez également mettre à jour votre
+                        y compris votre nom et votre adresse e-mail. Vous pouvez également mettre à jour votre
                         adresse de facturation ou changer votre mot de passe.
                       </Typographie>
                     </div>
@@ -280,7 +286,7 @@ const Profile = () => {
                       <Typographie variant="h2">Mes commandes</Typographie>
                       <Typographie theme="secondary" font="ambit">
                         Voir vos commandes précédentes et leur statut. Vous
-                        pouvez aussi créer un retour ou un échange si besoin.
+                        pouvez aussi créer un retour ou un échange si besoin en contactant le support en bas de page.
                       </Typographie>
                     </div>
                     <div className="w-full h-[1px] bg-cloud"></div>
@@ -309,8 +315,7 @@ const Profile = () => {
                             </Typographie>
                             <div className="w-full flex items-center justify-between gap-[15px] flex-wrap">
                               <Typographie font="cooper" theme="grey">
-                                {formattedDate}{" "}
-                                {/* Use the formatted date here */}
+                                {formattedDate}
                               </Typographie>
                               <Typographie font="cooper" theme="grey">
                                 {item.items.length}
@@ -319,27 +324,47 @@ const Profile = () => {
                                 € {item.total}
                               </Typographie>
                             </div>
-                            {/*
+
                             <div className="w-full h-[1px] bg-cloud"></div>
-                            <div className="rounded-[6px] sm:w-[236px] w-full aspect-square p-[20px] border-cloud border bg-white relative">
-                              <Image
-                                src="/img/png/airpod.png"
-                                fill
-                                alt=""
-                                className="object-contain"
-                              />
-                            </div>
-                             <div className="w-full h-[1px] bg-cloud"></div>
-                            <div className="flex items-center justify-between">
-                              <Typographie
-                                theme="modify"
-                                font="ambit"
-                                weight="semibold"
-                              >
-                                *1
+                            {item.items.length > 0 ? (
+                              <>
+                                <div className="rounded-[6px] sm:w-[236px] w-full aspect-square p-[20px] border-cloud border bg-white relative">
+                                  {item.items[0].item.productImages &&
+                                  item.items[0].item.productImages.length >
+                                    0 ? (
+                                    <Image
+                                      src={
+                                        item.items[0].item.productImages[0].src
+                                      }
+                                      fill
+                                      alt=""
+                                      className="object-contain"
+                                    />
+                                  ) : (
+                                    <Image
+                                      src="/img/png/defaultImg.png"
+                                      fill
+                                      alt=""
+                                      className="object-contain"
+                                    />
+                                  )}
+                                </div>
+                                <div className="w-full h-[1px] bg-cloud"></div>
+                                <div className="flex items-center justify-between">
+                                  <Typographie
+                                    theme="modify"
+                                    font="ambit"
+                                    weight="semibold"
+                                  >
+                                    * {item.items[0].item.quantity}
+                                  </Typographie>
+                                </div>
+                              </>
+                            ) : (
+                              <Typographie font="ambit" theme="modify">
+                                Aucun produit trouvé.
                               </Typographie>
-                              <Button variant="filled">Voir les détails</Button>
-                            </div> */}
+                            )}
                           </div>
                         );
                       })
@@ -363,8 +388,7 @@ const Profile = () => {
                 weight="semibold"
                 font="ambit"
               >
-                Vous pouvez trouver les questions et reponses regulierement
-                posées sur notre page support client.
+                Vous pouvez trouver nos informations de contact sur notre page support client.
               </Typographie>
               <Link
                 href={"/userpages/ClientSupport"}

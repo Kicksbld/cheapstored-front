@@ -154,7 +154,6 @@ const CheckOut = () => {
     router.push("#payement");
   };
 
-
   return (
     <div className="container pb-4">
       <NavBar />
@@ -337,15 +336,14 @@ const CheckOut = () => {
               </div>
               {isPayement ? (
                 <CheckoutButton
-                name={userData.lastName + " " + userData.firstName}
-                idCustomer={userConnectedData.id}
-                items={cart.map(item => ({
-                  id: item.productId,
-                  itemId: item.productImages[0].itemId, 
-                  quantity: item.quantity,
-                  amount: item.productPrice,
-                }))}
-              />
+                  name={userData.lastName + " " + userData.firstName}
+                  idCustomer={userConnectedData.id}
+                  items={cart.map((item) => ({
+                    id: item.productId,
+                    quantity: item.quantity,
+                    amount: item.productPrice,
+                  }))}
+                />
               ) : (
                 ""
               )}

@@ -17,10 +17,18 @@ interface UserData {
 }
 
 interface Product {
-  productName: string;
-  productPrice: number;
-  quantity: number;
-  productImages: Image[];
+  item: {
+    categoryId: number;
+    createdAt: string;
+    headerItem: boolean;
+    id: number;
+    longDesc: string;
+    name: string;
+    price: number;
+    quantity: number;
+    shortDesc: string;
+    productImages?: Image[]; // Optional if images might exist
+  };
 }
 
 type Image = {
@@ -101,8 +109,16 @@ const OrderReview = () => {
     fetchOrders();
   }, [userData.email]); // Add userData.email as a dependency
 
+  if (isLoading) {
+    return <Loader />;
+  }
+
   if (!clientOrder) {
-    return <div>Aucune commande trouvée.</div>; // Handle the case where no order is found
+    return <div></div>; // Handle the case where no order is found
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
   }
 
   const createdAtDate = new Date(clientOrder.createdAt);
@@ -113,13 +129,7 @@ const OrderReview = () => {
     .toString()
     .padStart(2, "0")}/${createdAtDate.getFullYear()}`;
 
-  if (isLoading) {
-    return <Loader />;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
+  const orderTotalPrice = clientOrder.total;
 
   console.log(clientOrder);
 
@@ -165,21 +175,28 @@ const OrderReview = () => {
           </div>
           <hr className="w-full border border-cloud" />
           <div className="space-y-[20px] w-full">
-            {/* {cart.length > 0 ? (
-              cart.map((product, index) => (
+            {clientOrder.items.map((product, index) => {
+              return (
                 <div key={index}>
-                  <div
-                    key={index}
-                    className="flex items-center justify-between flex-wrap gap-4"
-                  >
+                  <div className="flex items-center justify-between flex-wrap gap-4">
                     <div className="flex gap-[20px]">
                       <div className="w-max h-max">
-                        <Image
-                          src={product.productImages[0].src}
-                          alt=""
-                          width={54}
-                          height={50}
-                        />
+                        {product.item.productImages &&
+                        product.item.productImages.length > 0 ? (
+                          <Image
+                            src={product.item.productImages[0].src}
+                            alt=""
+                            width={54}
+                            height={50}
+                          />
+                        ) : (
+                          <Image
+                            src="/img/png/defaultImg.png"
+                            alt=""
+                            width={54}
+                            height={50}
+                          />
+                        )}
                       </div>
                       <div className="space-y-[10px]">
                         <Typographie
@@ -187,38 +204,26 @@ const OrderReview = () => {
                           theme="dark"
                           font="ambit"
                         >
-                          {product.productName}
-                        </Typographie>
-                        <Typographie
-                          variant="body-sm"
-                          theme="grey"
-                          font="ambit"
-                          className="underline"
-                        >
-                          Retour gratuit sous 3 jours
+                          {product.item.name}
                         </Typographie>
                       </div>
                     </div>
                     <div>
                       <Typographie variant="body-sm" theme="grey" font="ambit">
-                        {product.quantity} * {product.productPrice} €
+                        {product.item.quantity} * {product.item.price} €
                       </Typographie>
                     </div>
                   </div>
-                  <hr className="border border-cloud w-full" />
+                  <hr className="border border-cloud w-full mt-4" />
                 </div>
-              ))
-            ) : (
-              <Typographie variant="body-sm" theme="grey" font="ambit">
-                Aucun produit n&apos;a été trouvé.
-              </Typographie>
-            )} */}
+              );
+            })}
             <div className="flex justify-between items-center ">
               <Typographie font="ambit" variant="body-sm">
                 Sous-total
               </Typographie>
               <Typographie font="ambit" variant="body-sm">
-                {clientOrder.total - 5} €
+                {(orderTotalPrice - 5).toFixed(2)} €
               </Typographie>
             </div>
             <div className="flex justify-between items-center">
@@ -243,7 +248,7 @@ const OrderReview = () => {
                 Total TTC
               </Typographie>
               <Typographie font="ambit" variant="body-sm">
-                {clientOrder.total} €
+                {orderTotalPrice} €
               </Typographie>
             </div>
           </div>

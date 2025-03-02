@@ -10,7 +10,7 @@ const SESSION_URL = "/api/checkout";
 
 interface CheckoutFormProps {
   name: string;
-  items: { id: number; itemId: number; quantity: number; amount: number }[]; // Ajout de id dans chaque item
+  items: { id: number; quantity: number; amount: number }[]; // Ajout de id dans chaque item
   idCustomer: number;
 }
 
@@ -46,6 +46,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({
           items,
         }),
       });
+      
 
       if (!res.ok) {
         throw new Error("Failed to create checkout session");
@@ -74,9 +75,13 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({
   return (
     <form onSubmit={handleSubmit}>
       {loading ? (
-        <Button type="submit" size="large" variant="filled" disabled={loading}>Chargement en cours</Button>
+        <Button type="submit" size="large" variant="filled" disabled={loading}>
+          Chargement en cours
+        </Button>
       ) : (
-        <Button type="submit" size="large" variant="filled">Payement Sécurisé</Button>
+        <Button type="submit" size="large" variant="filled">
+          Payement Sécurisé
+        </Button>
       )}
       {error && <p>{error}</p>}
     </form>
@@ -85,7 +90,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({
 
 const Checkout: React.FC<{
   name: string;
-  items: { id: number; itemId: number; quantity: number; amount: number }[];
+  items: { id: number; quantity: number; amount: number }[];
   idCustomer: number;
 }> = ({ name, idCustomer, items }) => (
   <Elements stripe={stripePromise}>
