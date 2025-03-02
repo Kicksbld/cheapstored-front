@@ -35,7 +35,7 @@ export default async function handler(
             product_data: {
               name: `${name}`,
             },
-            unit_amount: (item.amount + 5) * 100, // Montant en centimes
+            unit_amount: ((item.amount + 5) * 100).toFixed(), // Montant en centimes
           },
           quantity: item.quantity,
         })
