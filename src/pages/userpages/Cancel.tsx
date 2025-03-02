@@ -13,13 +13,13 @@ const Cancel = () => {
           variant="h2"
           theme="error"
         >
-          Votre payement n&aposa pas aboutie veuillez ressayer ou contacter notre
+          Votre payement n&apos;a pas aboutie veuillez ressayer ou contacter notre
           support
         </Typographie>
         <div className="flex items-center gap-4">
           <Link href="/">
             <Button  size="large" className="w-full">
-              Retourner a l&aposaccueil
+              Retourner a l&apos;accueil
             </Button>
           </Link>
           <Link href="/userpages/ClientSupport">
