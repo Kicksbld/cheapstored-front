@@ -87,32 +87,33 @@ const ProductCards: React.FC<ProductCardsProps> = ({ chosenCat }) => {
           href={`/product/${product.id}`}
           key={product.id}
         >
-          <div className="flex flex-col justify-center p-[20px] cursor-pointer bg-light gap-[20px] w-full rounded-[10px] border border-cloud">
-            <div className="w-full aspect-square relative ">
+          <div className="flex flex-col justify-center p-[20px] cursor-pointer group bg-light gap-[20px] w-full rounded-[10px] border border-cloud">
+            <div className="w-full aspect-square relative">
               <Image
                 key={product.images?.[0]?.id || `default-${product.id}`}
                 src={product.images?.[0]?.src || "/img/png/defaultImg.png"}
                 alt={product.images?.[0]?.src || "Image par défaut"}
                 fill
-                className="object-cover"
+                className="object-cover group-hover:scale-105 transition-all duration-200 ease-in-out"
               />
             </div>
 
             <div className="space-y-[20px]">
               <div className="space-y-[6px]">
-                <Typographie
+                {/* <Typographie
                   font="ambit"
                   weight="bold"
                   theme="secondary"
                   variant="body-xs"
                 >
                   Livraison gratuite
-                </Typographie>
+                </Typographie> */}
                 <Typographie
                   font="ambit"
                   weight="semibold"
-                  theme="primary"
+                  theme="secondary"
                   variant="body-sm"
+                  className="w-full text-center"
                 >
                   {product.name}
                 </Typographie>

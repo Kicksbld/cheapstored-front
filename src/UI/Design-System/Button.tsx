@@ -110,7 +110,7 @@ export const Button = ({
         variantStyles,
         sizeStyles,
         iconSize,
-        "cursor-pointer",
+        "cursor-pointer hover:bg-black/5 transition-all duration-200 ease-in-out",
         disabled && "cursor-not-allowed opacity-50", // Appliquer les styles désactivés
         className
       )}

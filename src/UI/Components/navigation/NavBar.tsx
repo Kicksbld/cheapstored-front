@@ -31,12 +31,15 @@ const NavBar = () => {
           </Link>
         ) : (
           <Link href="/userpages/LogIn">
-            <Typographie className="cursor-pointer" font="ambit">
+            <Typographie
+              className="cursor-pointer hover:opacity-75 transition-all duration-200 ease-in-out"
+              font="ambit"
+            >
               Se connecter
             </Typographie>
           </Link>
         )}
-        <div className="flex items-center gap-[10px] cursor-pointer">
+        <div className="flex items-center gap-[10px] cursor-pointer hover:opacity-75 transition-all duration-200 ease-in-out">
           <Image alt="" src="/img/svg/cart.svg" width={20} height={20} />
           <Link href="/userpages/Cart">
             <Typographie font="ambit">Panier</Typographie>

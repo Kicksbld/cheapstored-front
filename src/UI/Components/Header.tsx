@@ -8,9 +8,10 @@ import { HiMinus } from "react-icons/hi";
 import { RiArrowRightSFill } from "react-icons/ri";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
+import Counter from "../Design-System/Counter";
 
 interface Product {
-  productId: number
+  productId: number;
   productName: string;
   productPrice: number;
   productQuantity: number;
@@ -33,7 +34,7 @@ const Header = ({
 }: Product) => {
   const [quantity, setQuantity] = useState(1);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [selectedImageId, setSelectedImageId] = useState(productImages[0]?.id); 
+  const [selectedImageId, setSelectedImageId] = useState(productImages[0]?.id);
   const pathname = usePathname();
   const router = useRouter();
 
@@ -60,7 +61,7 @@ const Header = ({
   };
 
   const handleImageClick = (id: number) => {
-    setSelectedImageId(id); 
+    setSelectedImageId(id);
   };
 
   const handlePopupOpen = () => {
@@ -76,14 +77,21 @@ const Header = ({
         {isPopupOpen && (
           <div className="fixed z-[500] right-10 top-20 bg-light border-2 border-cloud rounded-[4px] py-[10px] px-[15px] flex items-center flex-col gap-[12px] animate-popup ">
             <div className="flex items-center gap-2">
-            <Typographie variant="h3" font="ambit" theme="modify">
-              * {quantity}
-            </Typographie>
-            <Typographie variant="h3" font="cooper">
-              Article Ajouté au Panier
-            </Typographie>
-          </div>
-            <Button onClick={() => router.push("/userpages/Cart")} variant="filled" size="small" className="w-max">Consulter</Button>
+              <Typographie variant="h3" font="ambit" theme="modify">
+                * {quantity}
+              </Typographie>
+              <Typographie variant="h3" font="cooper">
+                Article Ajouté au Panier
+              </Typographie>
+            </div>
+            <Button
+              onClick={() => router.push("/userpages/Cart")}
+              variant="filled"
+              size="small"
+              className="w-max"
+            >
+              Consulter
+            </Button>
           </div>
         )}
         <div className="absolute right-1/2  z-[200] top-[130px] md:right-0 md:top-1/2 flex md:flex-col flex-row cursor-pointer transform md:-translate-y-2/3 md:translate-x-0 translate-x-1/2  items-center gap-4">
@@ -97,7 +105,12 @@ const Header = ({
               } rounded-[4px] cursor-pointer md:w-[128px] md:h-[88px] w-[90px] h-[55px]  relative`}
               onClick={() => handleImageClick(item.id)} // Gérer le clic
             >
-              <Image src={item.src} alt="" fill className="object-contain" />
+              <Image
+                src={item.src}
+                alt=""
+                fill
+                className="object-contain hover:scale-110 transition-all duration-200 ease-in-out"
+              />
             </div>
           ))}
         </div>
@@ -185,19 +198,27 @@ const Header = ({
               <div className="flex flex-wrap items-center gap-[15px] md:w-max">
                 <div className="w-fit rounded-full flex items-center gap-[15px] px-[15px] py-[5px] border-2 border-black border-dashed select-none">
                   <HiMinus
-                    className="text-black/70 cursor-pointer"
+                    className="text-black/70 cursor-pointer hover:text-red transition-all duration-200 ease-in-out"
                     size={20}
                     onClick={() =>
                       quantity > 1 ? setQuantity(quantity - 1) : null
                     }
                   />
                   <Typographie
-                    className="w-[20px] text-center"
+                    className="w-[20px] text-center flex items-center justify-center"
                     font="ambit"
                     weight="semibold"
                     variant="h3"
                   >
-                    {quantity}
+                    <Counter
+                      value={quantity}
+                      places={[1]}
+                      fontSize={18}
+                      padding={5}
+                      gap={10}
+                      textColor="black"
+                      fontWeight={500}
+                    />
                   </Typographie>
                   <AiOutlinePlus
                     onClick={() =>
@@ -205,7 +226,11 @@ const Header = ({
                         ? setQuantity(quantity + 1)
                         : null
                     }
-                    className="text-black/70 cursor-pointer"
+                    className={
+                      quantity < productQuantity
+                        ? "text-black/70 cursor-pointer hover:text-green transition-all duration-200 ease-in-out"
+                        : "opacity-35 cursor-not-allowed"
+                    }
                     size={20}
                   />
                 </div>
