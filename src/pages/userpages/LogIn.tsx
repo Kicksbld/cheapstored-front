@@ -126,6 +126,7 @@ const LogIn = () => {
               />
             </div>
             {errorMessage && <div className="text-red-500">{errorMessage}</div>}
+            <Link href="/userpages/ClientSupport">
             <Typographie
               theme="secondary"
               variant="h3"
@@ -134,6 +135,8 @@ const LogIn = () => {
             >
               Mot de passe oublié?
             </Typographie>
+            </Link>
+            
             <Button
               type="submit"
               size="large"

@@ -31,7 +31,7 @@ interface Product {
     price: number;
     quantity: number;
     shortDesc: string;
-    productImages?: Image[]; // Optional if images might exist
+    images?: Image[]; // Optional if images might exist
   };
 }
 
@@ -194,7 +194,7 @@ const Profile = () => {
               </div>
             </div>
             <div>
-              <div className="space-y-[50px] flex-[2] md:max-w-[951px]">
+              <div className="space-y-[50px] flex-[2] md:max-w-[651px] lg:max-w-[851px]">
                 {state === 1 && (
                   <>
                     <div>
@@ -329,12 +329,12 @@ const Profile = () => {
                             {item.items.length > 0 ? (
                               <>
                                 <div className="rounded-[6px] sm:w-[236px] w-full aspect-square p-[20px] border-cloud border bg-white relative">
-                                  {item.items[0].item.productImages &&
-                                  item.items[0].item.productImages.length >
+                                  {item.items[0].item.images &&
+                                  item.items[0].item.images.length >
                                     0 ? (
                                     <Image
                                       src={
-                                        item.items[0].item.productImages[0].src
+                                        item.items[0].item.images[0].src
                                       }
                                       fill
                                       alt=""

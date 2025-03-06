@@ -27,7 +27,7 @@ interface Product {
     price: number;
     quantity: number;
     shortDesc: string;
-    productImages?: Image[]; // Optional if images might exist
+    images?: Image[]; // Optional if images might exist
   };
 }
 
@@ -114,7 +114,7 @@ const OrderReview = () => {
   }
 
   if (!clientOrder) {
-    return <div></div>; // Handle the case where no order is found
+    return null;
   }
 
   if (error) {
@@ -181,10 +181,10 @@ const OrderReview = () => {
                   <div className="flex items-center justify-between flex-wrap gap-4">
                     <div className="flex gap-[20px]">
                       <div className="w-max h-max">
-                        {product.item.productImages &&
-                        product.item.productImages.length > 0 ? (
+                        {product.item.images &&
+                        product.item.images.length > 0 ? (
                           <Image
-                            src={product.item.productImages[0].src}
+                            src={product.item.images[0].src}
                             alt=""
                             width={54}
                             height={50}

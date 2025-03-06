@@ -5,6 +5,12 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2025-01-27.acacia",
 });
 
+interface Product {
+  quantity: number;
+  id: number;
+  amount: number;
+}
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -22,27 +28,38 @@ export default async function handler(
     });
 
     try {
-      // Optionnel: Création d'un client Stripe
+      // Création d'un client Stripe
       const customer = await stripe.customers.create({
         email: customerEmail,
         name: customerName,
       });
 
-    
-      const taxPerItem = 5 / items.length; // Distribute the tax equally
+      // Taxe fixe
+      const taxAmount = 500; // 5.00€ en centimes
 
-      const lineItems = items.map(
-        (item: { id: number; quantity: number; amount: number }, index: number) => ({
-          price_data: {
-            currency: "eur",
-            product_data: {
-              name: `Produit ${index + 1}, (tax inclue: ${taxPerItem.toFixed(2)}€)`,
-            },
-            unit_amount: Math.round((item.amount + taxPerItem) * 100), // Include tax in the price
+      // Création des articles Stripe (sans ajouter la taxe par unité)
+      const lineItems = items.map((item: Product) => ({
+        price_data: {
+          currency: "eur",
+          product_data: {
+            name: `Produit ${item.id}`,
           },
-          quantity: item.quantity,
-        })
-      );
+          unit_amount: Math.round(item.amount * 100), // Prix unitaire sans taxe
+        },
+        quantity: item.quantity,
+      }));
+
+      // Ajout de la ligne pour la taxe
+      lineItems.push({
+        price_data: {
+          currency: "eur",
+          product_data: {
+            name: "Taxe",
+          },
+          unit_amount: taxAmount,
+        },
+        quantity: 1,
+      });
 
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card", "klarna", "link", "paypal"],
@@ -50,7 +67,7 @@ export default async function handler(
         customer: customer.id,
         metadata: {
           idCustomer: idCustomer,
-          items: JSON.stringify(items), // Items avec leurs id, itemId et quantité
+          items: JSON.stringify(items),
         },
         mode: "payment",
         allow_promotion_codes: true,
