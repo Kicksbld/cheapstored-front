@@ -21,7 +21,7 @@ const ClientSupport = () => {
             <Button variant="filled">Nous contacter</Button>
           </div>
           <div onClick={() => router.push("/")}>
-            <Button>Retourner a l'accueil</Button>
+            <Button>Retourner a l&apos;accueil</Button>
           </div>
         </div>
       </div>
