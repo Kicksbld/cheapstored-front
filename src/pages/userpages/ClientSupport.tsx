@@ -16,9 +16,13 @@ const ClientSupport = () => {
           à votre disposition. N’hésitez pas à nous contacter à l’adresse ci
           dessous. Nous vous répondrons dans les plus brefs délais !
         </Typographie>
-
-        <div onClick={() => router.push("mailto:cheapstored71@gmail.com")}>
-          <Button variant="filled">Nous contacter</Button>
+        <div className="flex items-center gap-4">
+          <div onClick={() => router.push("mailto:cheapstored71@gmail.com")}>
+            <Button variant="filled">Nous contacter</Button>
+          </div>
+          <div onClick={() => router.push("/")}>
+            <Button>Retourner a l'accueil</Button>
+          </div>
         </div>
       </div>
     </div>
