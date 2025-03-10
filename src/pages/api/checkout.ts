@@ -62,7 +62,7 @@ export default async function handler(
       });
 
       const session = await stripe.checkout.sessions.create({
-        payment_method_types: ["card", "klarna", "link", "paypal"],
+        payment_method_types: ["card", "klarna", "link"],
         line_items: lineItems,
         customer: customer.id,
         metadata: {
