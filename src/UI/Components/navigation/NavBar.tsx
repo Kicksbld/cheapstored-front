@@ -22,7 +22,7 @@ const NavBar = () => {
         <Link href="/">
           <Image
             alt=""
-            src="/img/svg/CST-COLLECTION.svg"
+            src="/img/svg/CST-Collection.svg"
             width={202}
             height={29}
           />
