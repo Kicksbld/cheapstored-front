@@ -102,19 +102,19 @@ const Header = ({
                 selectedImageId === item.id
                   ? "boxEffect"
                   : "boxEffectNotSelected"
-              } rounded-[4px] cursor-pointer md:w-[128px] md:h-[88px] w-[90px] h-[55px]  relative`}
+              } rounded-[4px] cursor-pointer overflow-hidden md:w-[128px] md:h-[88px] w-[90px] h-[55px] relative`}
               onClick={() => handleImageClick(item.id)} // Gérer le clic
             >
               <Image
                 src={item.src}
                 alt=""
                 fill
-                className="object-contain hover:scale-110 transition-all duration-200 ease-in-out"
+                className="object-cover hover:scale-110 transition-all duration-200 ease-in-out"
               />
             </div>
           ))}
         </div>
-        <div className="container flex flex-col min-h-screen space-y-8 w-full justify-between items-center">
+        <div className="container overflow-x-hidden flex flex-col min-h-screen space-y-8 w-full justify-between items-center">
           <div className="w-full">
             <NavBar />
             {pathname !== "/" && (

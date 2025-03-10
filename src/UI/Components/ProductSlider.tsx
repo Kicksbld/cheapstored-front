@@ -82,7 +82,7 @@ const ProductSlider = () => {
                     </Button>
                 </div>
             </div>
-            <div className="w-full mb-[30px] grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 md:gap-[30px] gap-[15px]">
+            <div className="w-full mb-[30px] grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 md:gap-[30px] gap-[8px]">
                 <ProductCards chosenCat={chosenCat} />
             </div>
         </div>
