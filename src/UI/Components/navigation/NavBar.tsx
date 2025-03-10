@@ -30,8 +30,15 @@ const NavBar = () => {
       </div>
       <div className="flex items-center w-full justify-end gap-[21px]">
         {isAuthenticated ? (
-          <Link href="/userpages/Profile">
-            <Typographie className="cursor-pointer" font="ambit">
+          <Link
+            className="flex items-center gap-[10px]"
+            href="/userpages/Profile"
+          >
+            <VscAccount className="md:hidden block" size={20} />
+            <Typographie
+              className="cursor-pointer md:block hidden"
+              font="ambit"
+            >
               Mon Compte
             </Typographie>
           </Link>

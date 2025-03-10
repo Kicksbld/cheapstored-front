@@ -12,11 +12,11 @@ const ClientSupport = () => {
           Support Client
         </Typographie>
         <Typographie font="ambit" theme="secondary" className="max-w-[500px]">
-          Pour toute question, demande ou problème, notre équipe de support est
+          Pour toute question, demande ou problème ou changer votre mot de passe, notre équipe de support est
           à votre disposition. N’hésitez pas à nous contacter à l’adresse ci
           dessous. Nous vous répondrons dans les plus brefs délais !
         </Typographie>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 flex-wrap">
           <div onClick={() => router.push("mailto:cheapstored71@gmail.com")}>
             <Button variant="filled">Nous contacter</Button>
           </div>
