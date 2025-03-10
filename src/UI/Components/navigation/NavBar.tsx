@@ -36,8 +36,11 @@ const NavBar = () => {
             </Typographie>
           </Link>
         ) : (
-          <Link className="flex items-center gap-[10px]" href="/userpages/LogIn">
-            <VscAccount className="md:hidden block" size={20}  />
+          <Link
+            className="flex items-center gap-[10px]"
+            href="/userpages/LogIn"
+          >
+            <VscAccount className="md:hidden block" size={20} />
             <Typographie
               className=" md:block hidden cursor-pointer hover:opacity-75 transition-all duration-200 ease-in-out"
               font="ambit"
@@ -46,14 +49,15 @@ const NavBar = () => {
             </Typographie>
           </Link>
         )}
-        <div className="flex items-center gap-[10px] cursor-pointer hover:opacity-75 transition-all duration-200 ease-in-out">
-          <Image alt="" src="/img/svg/cart.svg" width={20} height={20} />
-          <Link href="/userpages/Cart">
+        <Link href="/userpages/Cart">
+          <div className="flex items-center gap-[10px] cursor-pointer hover:opacity-75 transition-all duration-200 ease-in-out">
+            <Image alt="" src="/img/svg/cart.svg" width={20} height={20} />
+
             <Typographie className="md:block hidden" font="ambit">
               Panier
             </Typographie>
-          </Link>
-        </div>
+          </div>
+        </Link>
       </div>
     </div>
   );
