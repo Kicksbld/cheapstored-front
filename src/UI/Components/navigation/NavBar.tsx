@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import { VscAccount } from "react-icons/vsc";
 
 const NavBar = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -19,7 +20,12 @@ const NavBar = () => {
     <div className="flex items-center pt-[35px]">
       <div className="md:w-full">
         <Link href="/">
-          <Image alt="" src="/img/svg/CST.svg" width={44} height={24} />
+          <Image
+            alt=""
+            src="/img/svg/CST-COLLECTION.svg"
+            width={202}
+            height={29}
+          />
         </Link>
       </div>
       <div className="flex items-center w-full justify-end gap-[21px]">
@@ -30,9 +36,10 @@ const NavBar = () => {
             </Typographie>
           </Link>
         ) : (
-          <Link href="/userpages/LogIn">
+          <Link className="flex items-center gap-[10px]" href="/userpages/LogIn">
+            <VscAccount className="md:hidden block" size={20}  />
             <Typographie
-              className="cursor-pointer hover:opacity-75 transition-all duration-200 ease-in-out"
+              className=" md:block hidden cursor-pointer hover:opacity-75 transition-all duration-200 ease-in-out"
               font="ambit"
             >
               Se connecter
@@ -42,7 +49,9 @@ const NavBar = () => {
         <div className="flex items-center gap-[10px] cursor-pointer hover:opacity-75 transition-all duration-200 ease-in-out">
           <Image alt="" src="/img/svg/cart.svg" width={20} height={20} />
           <Link href="/userpages/Cart">
-            <Typographie font="ambit">Panier</Typographie>
+            <Typographie className="md:block hidden" font="ambit">
+              Panier
+            </Typographie>
           </Link>
         </div>
       </div>
