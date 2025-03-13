@@ -1,6 +1,5 @@
 import { Typographie } from "@/UI/Design-System/Typographie";
-import { FaInstagram } from "react-icons/fa6";
-import { FaSnapchat } from "react-icons/fa6";
+import { FaInstagram, FaTiktok } from "react-icons/fa6";
 
 export const Footer = () => {
   return (
@@ -10,16 +9,16 @@ export const Footer = () => {
       </Typographie>
       <div className="w-max flex gap-5 items-center justify-center">
         <a
-          href="https://instagram.com"
+          href="https://instagram.com/c.s.t_71?igsh=MW9sZXh3YmZIbG45Ng%3D&utm_source=qr"
           className="hover:opacity-65 transition-all duration-200 ease-linear focus:text-red-500"
         >
           <FaInstagram size={22} />
         </a>
         <a
-          href="https://FaSnapchat.com"
+          href="https://tiktok.com/@cst_store?t=ZN-8ueZtQkNSIS&_r=1"
           className="hover:opacity-65 transition-all duration-200 ease-linear focus:text-red-500"
         >
-          <FaSnapchat size={22} />
+          <FaTiktok size={22} />
         </a>
       </div>
     </section>
