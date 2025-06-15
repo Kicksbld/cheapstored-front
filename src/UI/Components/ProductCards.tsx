@@ -27,10 +27,14 @@ type Error = {
 };
 
 interface ProductCardsProps {
+  nameFilter?: string;
   chosenCat: string;
 }
 
-const ProductCards: React.FC<ProductCardsProps> = ({ chosenCat }) => {
+const ProductCards: React.FC<ProductCardsProps> = ({
+  chosenCat,
+  nameFilter,
+}) => {
   const PRODUCT_URL = "/api/products";
 
   const [error, setError] = useState<Error | null>(null);
@@ -59,8 +63,18 @@ const ProductCards: React.FC<ProductCardsProps> = ({ chosenCat }) => {
     fetchProducts();
   }, []);
 
+  useEffect(() => {
+    if (nameFilter) {
+      const filtered = products.filter((product) =>
+        product.name.toLowerCase().includes(nameFilter.toLowerCase())
+      );
+      setFilteredProducts(filtered);
+    }
+  }, [nameFilter, products]);
+
   // Filtrer les produits lorsque chosenCat change
   useEffect(() => {
+    console.log(products);
     if (chosenCat === "all") {
       setFilteredProducts(products); // Si 'all', montre tous les produits
     } else {

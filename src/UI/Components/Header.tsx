@@ -133,7 +133,7 @@ const Header = ({
             )}
           </div>
           <div className="relative">
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center gap-4">
+            {/* <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center gap-4">
               <Typographie
                 variant="display"
                 font="tungsten"
@@ -142,7 +142,7 @@ const Header = ({
               >
                 {productName}
               </Typographie>
-            </div>
+            </div> */}
             <div className="relative z-10 imgHeader">
               <Image
                 key={selectedImageId} // Met à jour l'image principale
